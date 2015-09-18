@@ -1,0 +1,2 @@
+del *.cab
+del *.exe

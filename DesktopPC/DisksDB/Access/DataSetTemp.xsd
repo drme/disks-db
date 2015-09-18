@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="DataSetTemp" targetNamespace="http://tempuri.org/DataSetTemp.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/DataSetTemp.xsd" xmlns:mstns="http://tempuri.org/DataSetTemp.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DataSetTemp" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Temp">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:long" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:key name="DataSetTempKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:Temp" />
+			<xs:field xpath="mstns:id" />
+		</xs:key>
+	</xs:element>
+</xs:schema>

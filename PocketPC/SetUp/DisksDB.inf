@@ -1,0 +1,38 @@
+[Version]
+Signature="$Windows NT$"
+Provider="PDA"
+CESignature="$Windows CE$"
+
+[CEStrings]
+AppName="DisksDB"
+InstallDir=%CE1%\%AppName%
+
+[Strings]
+Manufacturer=""
+
+[CEDevice]
+VersionMin=4.0
+;VersionMax=5.99
+VersionMax=999.99
+
+[DefaultInstall]
+CEShortcuts=Shortcuts
+CopyFiles=Files.Common1
+
+[SourceDisksNames]
+1=,"Common1",,"..\PocketDisksDB\bin\Release\"
+
+[SourceDisksFiles]
+"DisksDB.exe"=1
+"DataBase.dll"=1
+
+[DestinationDirs]
+Shortcuts=0,%CE2%\Start Menu
+Files.Common1=0,"%InstallDir%"
+
+[Files.Common1]
+"DisksDB.exe","DisksDB.exe",,0
+"DataBase.dll","DataBase.dll",,0
+
+[Shortcuts]
+"DisksDB",0,"DisksDB.exe"
