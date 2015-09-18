@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{44A35A3D-8023-4C4B-8611-DBD3978D189E}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>Resources\App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>DisksDB</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>DisksDB.UserInterface</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>DisksDB.UserInterface.StartUp</StartupObject>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>C:\Users\Administrateur\Desktop\Nouveau dossier (2)\Backup14\</UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>14.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Management">
+      <Name>system.management</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI">
+      <Name>WeifenLuo.WinFormsUI</Name>
+      <HintPath>..\WeifenLuo.WinFormsUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Access\AccessConfig.cs" />
+    <Compile Include="Access\DataSetTemp.Designer.cs">
+      <DependentUpon>DataSetTemp.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Access\DbFileNameEditor.cs" />
+    <Compile Include="Access\DBUtils.cs" />
+    <Compile Include="Access\MsAccessDBLayer.cs" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\DataSetConfig.cs">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Config\DataSetConfig.Designer.cs">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ControlDonePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlImagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlMyTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlNewCover.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ErrorMessenger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventHandlerItemSelected.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventHandlerNodesUpdated.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileIcons.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCopyDataBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDisksTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFirstRun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImagePreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImagesExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInfoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewCDBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewDisk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPopertiesCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrintable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrintPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPropertiesBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPropertiesBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPropertiesDisk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPropertiesFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPropertiesImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSearchResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSearchResults.Designer.cs">
+      <DependentUpon>FormSearchResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWizardBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IListItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IMenuCommands.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="INativeRename.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITreeNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Language\DataSetConfig.Designer.cs">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Language\DataSetLanguage.Designer.cs">
+      <DependentUpon>DataSetLanguage.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Language\DataSetTranslation.Designer.cs">
+      <DependentUpon>DataSetTranslation.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Language\FormI18N.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Language\FormI18NDC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Language\FormTextsEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Language\GenericI18N.cs" />
+    <Compile Include="Language\I18N.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Language\Label.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Language\Language.cs" />
+    <Compile Include="Library\BaseObject.cs" />
+    <Compile Include="Library\Box.cs" />
+    <Compile Include="Library\BoxType.cs" />
+    <Compile Include="Library\Category.cs" />
+    <Compile Include="Library\DataBase.cs" />
+    <Compile Include="Library\DataSetSearch.Designer.cs">
+      <DependentUpon>DataSetSearch.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Library\DataSetSync.Designer.cs">
+      <DependentUpon>DataSetSync.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Library\DBLayerItem.cs" />
+    <Compile Include="Library\DBLayersScanner.cs" />
+    <Compile Include="Library\Disk.cs" />
+    <Compile Include="Library\DiskChecker.cs" />
+    <Compile Include="Library\DiskType.cs" />
+    <Compile Include="Library\DVDDataBaseCOMImpl.cs" />
+    <Compile Include="Library\EmptyLayer.cs" />
+    <Compile Include="Library\EnumImageCategories.cs" />
+    <Compile Include="Library\EventHandlerItemAdded.cs" />
+    <Compile Include="Library\EventHandlerItemRemoved.cs" />
+    <Compile Include="Library\File.cs" />
+    <Compile Include="Library\FileInfo.cs" />
+    <Compile Include="Library\IAddDiskProgress.cs" />
+    <Compile Include="Library\IDBLayer.cs" />
+    <Compile Include="Library\IDName.cs" />
+    <Compile Include="Library\IDVDDataBaseCOM.cs" />
+    <Compile Include="Library\Image.cs" />
+    <Compile Include="Library\ImageFactory.cs" />
+    <Compile Include="Library\ImageFactoryBack.cs" />
+    <Compile Include="Library\ImageFactoryDisk.cs" />
+    <Compile Include="Library\ImageFactoryDVD.cs" />
+    <Compile Include="Library\ImageFactoryFront.cs" />
+    <Compile Include="Library\ImageFactoryInlay.cs" />
+    <Compile Include="Library\IProgress.cs" />
+    <Compile Include="Library\ObjectDeletedException.cs" />
+    <Compile Include="Library\SearchResultRow.cs" />
+    <Compile Include="Library\SyncServer.cs" />
+    <Compile Include="ListItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MenuEdit.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyResources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PanelIcon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="StartUp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TabMDI\TabMDI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolBar\ColorsHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ToolBar\ToolBar2x.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolBar\ToolBar2xButtonBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ToolBar\ToolBar2xSeparator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeImages.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeDisk.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeNodeImagesFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeViewBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TreeViewCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TreeViewImages.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\OpenGL.cs" />
+    <Compile Include="Utils\OpenGLControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utils\Serializer.cs" />
+    <Compile Include="Utils\SharedMemory.cs" />
+    <Compile Include="Utils\Utils.cs" />
+    <EmbeddedResource Include="Resources\initial.mdb" />
+    <EmbeddedResource Include="ControlDonePage.resx">
+      <DependentUpon>ControlDonePage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlImagePanel.resx">
+      <DependentUpon>ControlImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlMyTab.resx">
+      <DependentUpon>ControlMyTab.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlNewCover.resx">
+      <DependentUpon>ControlNewCover.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddImage.resx">
+      <DependentUpon>FormAddImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCopyDataBase.resx">
+      <DependentUpon>FormCopyDataBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDisksTree.resx">
+      <DependentUpon>FormDisksTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFirstRun.resx">
+      <DependentUpon>FormFirstRun.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImagePreview.resx">
+      <DependentUpon>FormImagePreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImagesExplorer.resx">
+      <DependentUpon>FormImagesExplorer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInfoView.resx">
+      <DependentUpon>FormInfoView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewCategory.resx">
+      <DependentUpon>FormNewCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewCDBox.resx">
+      <DependentUpon>FormNewCDBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewDisk.resx">
+      <DependentUpon>FormNewDisk.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPopertiesCategory.resx">
+      <DependentUpon>FormPopertiesCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrintPreview.resx">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPropertiesBase.resx">
+      <DependentUpon>FormPropertiesBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPropertiesBox.resx">
+      <DependentUpon>FormPropertiesBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPropertiesDisk.resx">
+      <DependentUpon>FormPropertiesDisk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPropertiesFile.resx">
+      <DependentUpon>FormPropertiesFile.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPropertiesImage.resx">
+      <DependentUpon>FormPropertiesImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSearch.resx">
+      <DependentUpon>FormSearch.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSearchResults.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormSearchResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSummary.resx">
+      <DependentUpon>FormSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTest.resx">
+      <DependentUpon>FormTest.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWizardBase.resx">
+      <DependentUpon>FormWizardBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\FormTextsEditor.resx">
+      <DependentUpon>FormTextsEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\I18N.resx">
+      <DependentUpon>I18N.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\App.ico" />
+    <EmbeddedResource Include="Resources\database.ico" />
+    <EmbeddedResource Include="Resources\delete.ico" />
+    <EmbeddedResource Include="Resources\dvd.ico" />
+    <EmbeddedResource Include="Resources\dvdbox.ico" />
+    <EmbeddedResource Include="Resources\dvdbox.png" />
+    <EmbeddedResource Include="Resources\gpl.txt" />
+    <EmbeddedResource Include="Resources\new.ico" />
+    <EmbeddedResource Include="Resources\newitem1.ico" />
+    <EmbeddedResource Include="Resources\printer.ico" />
+    <EmbeddedResource Include="Resources\properties.ico" />
+    <EmbeddedResource Include="Resources\up.ico" />
+    <EmbeddedResource Include="Resources\wellcomeImage.png" />
+    <EmbeddedResource Include="ToolBar\ToolBar2x.resx">
+      <DependentUpon>ToolBar2x.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreeViewBase.resx">
+      <DependentUpon>TreeViewBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreeViewImages.resx">
+      <DependentUpon>TreeViewImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="DataBase\language.mdb" />
+    <Content Include="Licenses\gpl.txt" />
+    <EmbeddedResource Include="Resources\app_16x16x32.png" />
+    <EmbeddedResource Include="Resources\app_16x16x8.png" />
+    <EmbeddedResource Include="Resources\app_32x32x32.png" />
+    <EmbeddedResource Include="Resources\app_48x48x32.png" />
+    <EmbeddedResource Include="Resources\database.png" />
+    <EmbeddedResource Include="Resources\delete.png" />
+    <EmbeddedResource Include="Resources\dvd.png" />
+    <EmbeddedResource Include="Resources\new.png" />
+    <EmbeddedResource Include="Resources\newitem1.png" />
+    <EmbeddedResource Include="Resources\printer.png" />
+    <EmbeddedResource Include="Resources\properties.png" />
+    <EmbeddedResource Include="Resources\setupBanner.bmp" />
+    <EmbeddedResource Include="Resources\up.png" />
+    <EmbeddedResource Include="Resources\webgray.png" />
+    <EmbeddedResource Include="Resources\web_ico.png" />
+    <EmbeddedResource Include="Resources\new copy.png" />
+    <Content Include="Config\DataSetConfig.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetConfig.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Access\DataSetTemp.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetTemp.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Access\DataSetTemp.xsc">
+      <DependentUpon>DataSetTemp.xsd</DependentUpon>
+    </None>
+    <None Include="Access\DataSetTemp.xss">
+      <DependentUpon>DataSetTemp.xsd</DependentUpon>
+    </None>
+    <None Include="Access\DataSetTemp.xsx">
+      <DependentUpon>DataSetTemp.xsd</DependentUpon>
+    </None>
+    <None Include="Config\DataSetConfig.xsc">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </None>
+    <None Include="Config\DataSetConfig.xss">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </None>
+    <None Include="Config\DataSetConfig.xsx">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </None>
+    <Content Include="Library\DataSetSearch.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetSearch.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Language\DataSetConfig.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetConfig.Designer.cs</LastGenOutput>
+    </Content>
+    <None Include="Language\DataSetConfig.xsc">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </None>
+    <None Include="Language\DataSetConfig.xss">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </None>
+    <None Include="Language\DataSetConfig.xsx">
+      <DependentUpon>DataSetConfig.xsd</DependentUpon>
+    </None>
+    <Content Include="Language\DataSetLanguage.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetLanguage.Designer.cs</LastGenOutput>
+    </Content>
+    <None Include="Language\DataSetLanguage.xsc">
+      <DependentUpon>DataSetLanguage.xsd</DependentUpon>
+    </None>
+    <None Include="Language\DataSetLanguage.xss">
+      <DependentUpon>DataSetLanguage.xsd</DependentUpon>
+    </None>
+    <None Include="Language\DataSetLanguage.xsx">
+      <DependentUpon>DataSetLanguage.xsd</DependentUpon>
+    </None>
+    <Content Include="Language\DataSetTranslation.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetTranslation.Designer.cs</LastGenOutput>
+    </Content>
+    <None Include="Language\DataSetTranslation.xsc">
+      <DependentUpon>DataSetTranslation.xsd</DependentUpon>
+    </None>
+    <None Include="Language\DataSetTranslation.xss">
+      <DependentUpon>DataSetTranslation.xsd</DependentUpon>
+    </None>
+    <None Include="Language\DataSetTranslation.xsx">
+      <DependentUpon>DataSetTranslation.xsd</DependentUpon>
+    </None>
+    <None Include="Library\DataSetSearch.xsc">
+      <DependentUpon>DataSetSearch.xsd</DependentUpon>
+    </None>
+    <None Include="Library\DataSetSearch.xss">
+      <DependentUpon>DataSetSearch.xsd</DependentUpon>
+    </None>
+    <None Include="Library\DataSetSearch.xsx">
+      <DependentUpon>DataSetSearch.xsd</DependentUpon>
+    </None>
+    <Content Include="Library\DataSetSync.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetSync.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Library\DataSetSync.xsc">
+      <DependentUpon>DataSetSync.xsd</DependentUpon>
+    </None>
+    <None Include="Library\DataSetSync.xss">
+      <DependentUpon>DataSetSync.xsd</DependentUpon>
+    </None>
+    <None Include="Library\DataSetSync.xsx">
+      <DependentUpon>DataSetSync.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\DataSources\DisksDB.DataBase.DataSetSearch.datasource" />
+    <EmbeddedResource Include="Resources\app.cdr" />
+    <EmbeddedResource Include="Resources\gpl.rtf" />
+    <EmbeddedResource Include="Resources\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

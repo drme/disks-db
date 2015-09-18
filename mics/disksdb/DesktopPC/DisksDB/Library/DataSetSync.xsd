@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="DataSetSync" targetNamespace="http://tempuri.org/DataSetSync.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/DataSetSync.xsd" xmlns:mstns="http://tempuri.org/DataSetSync.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DataSetSync" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Categories">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:long" minOccurs="0" />
+							<xs:element name="Name" type="xs:string" minOccurs="0" />
+							<xs:element name="Description" type="xs:string" minOccurs="0" />
+							<xs:element name="Parent" type="xs:long" minOccurs="0" />
+							<xs:element name="Flag" type="xs:int" minOccurs="0" />
+							<xs:element name="LastUpdate" type="xs:dateTime" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Boxes">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:long" minOccurs="0" />
+							<xs:element name="Name" type="xs:string" minOccurs="0" />
+							<xs:element name="Description" type="xs:string" minOccurs="0" />
+							<xs:element name="Category" type="xs:long" minOccurs="0" />
+							<xs:element name="Flag" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Disks">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:long" minOccurs="0" />
+							<xs:element name="Name" type="xs:string" minOccurs="0" />
+							<xs:element name="Description" type="xs:string" minOccurs="0" />
+							<xs:element name="Box" type="xs:long" minOccurs="0" />
+							<xs:element name="Flag" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Files">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:long" minOccurs="0" />
+							<xs:element name="Name" type="xs:string" minOccurs="0" />
+							<xs:element name="Size" type="xs:long" minOccurs="0" />
+							<xs:element name="Date" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="Parent" type="xs:long" minOccurs="0" />
+							<xs:element name="Attributes" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:key name="DataSetSyncKey1">
+			<xs:selector xpath=".//mstns:Categories" />
+			<xs:field xpath="mstns:id" />
+		</xs:key>
+		<xs:key name="DataSetSyncKey2">
+			<xs:selector xpath=".//mstns:Boxes" />
+			<xs:field xpath="mstns:id" />
+		</xs:key>
+		<xs:key name="DataSetSyncKey3">
+			<xs:selector xpath=".//mstns:Disks" />
+			<xs:field xpath="mstns:id" />
+		</xs:key>
+		<xs:key name="DataSetSyncKey4">
+			<xs:selector xpath=".//mstns:Files" />
+			<xs:field xpath="mstns:id" />
+		</xs:key>
+	</xs:element>
+</xs:schema>

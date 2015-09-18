@@ -1,0 +1,94 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopPC", "DesktopPC", "{B027B908-02B9-4E7E-A4AD-3A3AF772FBDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PocketPC", "PocketPC", "{5395A19B-3EE8-4FD6-9E62-09483D11FB65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3CF38BBF-4977-4D3C-8CD3-19DA57CD1211}"
+	ProjectSection(SolutionItems) = preProject
+		disksdb.snk = disksdb.snk
+		gpl.txt = gpl.txt
+		WeifenLuo.WinFormsUI.dll = WeifenLuo.WinFormsUI.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SetUp", "SetUp", "{D2C0DD6C-729E-4A6A-905F-8338B24489C6}"
+	ProjectSection(SolutionItems) = preProject
+		PocketPC\SetUp\clean.bat = PocketPC\SetUp\clean.bat
+		PocketPC\SetUp\DisksDB.ico = PocketPC\SetUp\DisksDB.ico
+		PocketPC\SetUp\DisksDB.inf = PocketPC\SetUp\DisksDB.inf
+		PocketPC\SetUp\DisksDB.ini = PocketPC\SetUp\DisksDB.ini
+		PocketPC\SetUp\DisksDB.nsi = PocketPC\SetUp\DisksDB.nsi
+		PocketPC\SetUp\eula.txt = PocketPC\SetUp\eula.txt
+		PocketPC\SetUp\leftside.bmp = PocketPC\SetUp\leftside.bmp
+		PocketPC\SetUp\leftside.psd = PocketPC\SetUp\leftside.psd
+		PocketPC\SetUp\make_cab.bat = PocketPC\SetUp\make_cab.bat
+		PocketPC\SetUp\readme.txt = PocketPC\SetUp\readme.txt
+		PocketPC\SetUp\SQLCE30.ini = PocketPC\SetUp\SQLCE30.ini
+		PocketPC\SetUp\sqlce30.ppc.wce4.armv4.CAB = PocketPC\SetUp\sqlce30.ppc.wce4.armv4.CAB
+		PocketPC\SetUp\sqlce30.ppc.wce5.armv4i.CAB = PocketPC\SetUp\sqlce30.ppc.wce5.armv4i.CAB
+		PocketPC\SetUp\sqlce30.wce5.armv4i.CAB = PocketPC\SetUp\sqlce30.wce5.armv4i.CAB
+		PocketPC\SetUp\sqlce30.wce5.mipsii.CAB = PocketPC\SetUp\sqlce30.wce5.mipsii.CAB
+		PocketPC\SetUp\sqlce30.wce5.mipsii_fp.CAB = PocketPC\SetUp\sqlce30.wce5.mipsii_fp.CAB
+		PocketPC\SetUp\sqlce30.wce5.mipsiv.CAB = PocketPC\SetUp\sqlce30.wce5.mipsiv.CAB
+		PocketPC\SetUp\sqlce30.wce5.mipsiv_fp.CAB = PocketPC\SetUp\sqlce30.wce5.mipsiv_fp.CAB
+		PocketPC\SetUp\sqlce30.wce5.sh4.CAB = PocketPC\SetUp\sqlce30.wce5.sh4.CAB
+		PocketPC\SetUp\test_cab.bat = PocketPC\SetUp\test_cab.bat
+		PocketPC\SetUp\topside.bmp = PocketPC\SetUp\topside.bmp
+		PocketPC\SetUp\topside.psd = PocketPC\SetUp\topside.psd
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketDisksDB", "PocketPC\PocketDisksDB\PocketDisksDB.csproj", "{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "PocketPC\DataBase\DataBase.csproj", "{9519A4BB-809A-4ADD-B673-9329EECD4E44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncClient", "PocketPC\SyncClient\SyncClient.csproj", "{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisksDB", "DesktopPC\DisksDB\DisksDB.csproj", "{44A35A3D-8023-4C4B-8611-DBD3978D189E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetUp", "DesktopPC\DisksDbSetup\DisksDbSetup.vdproj", "{F568FB59-AE76-4716-BE3D-7B2814A31F30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9519A4BB-809A-4ADD-B673-9329EECD4E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9519A4BB-809A-4ADD-B673-9329EECD4E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9519A4BB-809A-4ADD-B673-9329EECD4E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9519A4BB-809A-4ADD-B673-9329EECD4E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{44A35A3D-8023-4C4B-8611-DBD3978D189E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44A35A3D-8023-4C4B-8611-DBD3978D189E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44A35A3D-8023-4C4B-8611-DBD3978D189E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44A35A3D-8023-4C4B-8611-DBD3978D189E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F568FB59-AE76-4716-BE3D-7B2814A31F30}.Debug|Any CPU.ActiveCfg = Debug
+		{F568FB59-AE76-4716-BE3D-7B2814A31F30}.Debug|Any CPU.Build.0 = Debug
+		{F568FB59-AE76-4716-BE3D-7B2814A31F30}.Release|Any CPU.ActiveCfg = Release
+		{F568FB59-AE76-4716-BE3D-7B2814A31F30}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2C0DD6C-729E-4A6A-905F-8338B24489C6} = {5395A19B-3EE8-4FD6-9E62-09483D11FB65}
+		{9FDD2CA3-BDA8-4406-B075-EC5A508EF9AD} = {5395A19B-3EE8-4FD6-9E62-09483D11FB65}
+		{9519A4BB-809A-4ADD-B673-9329EECD4E44} = {5395A19B-3EE8-4FD6-9E62-09483D11FB65}
+		{E372C49D-2BFC-445A-AC12-DD10CD0BB69B} = {5395A19B-3EE8-4FD6-9E62-09483D11FB65}
+		{44A35A3D-8023-4C4B-8611-DBD3978D189E} = {B027B908-02B9-4E7E-A4AD-3A3AF772FBDB}
+		{F568FB59-AE76-4716-BE3D-7B2814A31F30} = {B027B908-02B9-4E7E-A4AD-3A3AF772FBDB}
+	EndGlobalSection
+EndGlobal

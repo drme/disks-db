@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="DataSetConfig" targetNamespace="http://www.tempuri.org/DataSetConfig.xsd" xmlns:mstns="http://www.tempuri.org/DataSetConfig.xsd" xmlns="http://www.tempuri.org/DataSetConfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="DataSetConfig" msdata:IsDataSet="true" msdata:Locale="fr-FR">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="ActiveLanguage">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ActiveLanguage" type="xs:int" minOccurs="0" />
+              <xs:element name="id" msdata:AutoIncrement="true" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ActiveLanguage" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
