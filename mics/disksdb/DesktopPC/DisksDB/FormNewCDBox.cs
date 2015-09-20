@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,19 +19,19 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.DataBase;
+using DisksDB.Utils;
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using DisksDB.DataBase;
-using System;
-using DisksDB.Utils;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for NewCDForm.
 	/// </summary>
-	public class FormNewCDBox : FormWizardBase
+	class FormNewCDBox : FormWizardBase
 	{
 		private ControlNewCover frontPage;
 		private ControlNewCover inlayPage;
@@ -296,7 +296,7 @@ namespace DisksDB.UserInterface
 				return;
 			}
 
-			ArrayList lst = db.BoxTypes;
+			var lst = db.BoxTypes;
 
 			this.comboBoxTyp.DataSource = lst;
 		}

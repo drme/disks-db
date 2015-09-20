@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -25,7 +25,7 @@ using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
-	public class TreeViewImages : TreeViewBase
+	class TreeViewImages : TreeViewBase
 	{
 		private FormImagePreview prv = null;
         private TreeNodeImagesFolder tnFront = null;

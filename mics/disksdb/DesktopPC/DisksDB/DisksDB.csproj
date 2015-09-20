@@ -22,13 +22,17 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DisksDB.UserInterface</RootNamespace>
+    <RootNamespace>DisksDB</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>DisksDB.UserInterface.StartUp</StartupObject>
-    <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>C:\Users\Administrateur\Desktop\Nouveau dossier (2)\Backup14\</UpgradeBackupLocation>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <StartupObject>DisksDB.StartUp</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OldToolsVersion>14.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -41,7 +45,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -67,6 +70,8 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -91,6 +96,7 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -99,6 +105,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
@@ -113,8 +120,7 @@
       <Name>System.XML</Name>
     </Reference>
     <Reference Include="WeifenLuo.WinFormsUI">
-      <Name>WeifenLuo.WinFormsUI</Name>
-      <HintPath>..\WeifenLuo.WinFormsUI.dll</HintPath>
+      <HintPath>..\..\WeifenLuo.WinFormsUI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -238,9 +244,6 @@
     <Compile Include="FormSummary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FormWizardBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,8 +311,6 @@
     <Compile Include="Library\Disk.cs" />
     <Compile Include="Library\DiskChecker.cs" />
     <Compile Include="Library\DiskType.cs" />
-    <Compile Include="Library\DVDDataBaseCOMImpl.cs" />
-    <Compile Include="Library\EmptyLayer.cs" />
     <Compile Include="Library\EnumImageCategories.cs" />
     <Compile Include="Library\EventHandlerItemAdded.cs" />
     <Compile Include="Library\EventHandlerItemRemoved.cs" />
@@ -402,12 +403,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utils\Logger.cs" />
-    <Compile Include="Utils\OpenGL.cs" />
-    <Compile Include="Utils\OpenGLControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Utils\Serializer.cs" />
-    <Compile Include="Utils\SharedMemory.cs" />
     <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="Resources\initial.mdb" />
     <EmbeddedResource Include="ControlDonePage.resx">
@@ -505,10 +501,6 @@
     <EmbeddedResource Include="FormSummary.resx">
       <DependentUpon>FormSummary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormTest.resx">
-      <DependentUpon>FormTest.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormWizardBase.resx">
       <DependentUpon>FormWizardBase.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -584,6 +576,7 @@
     <None Include="Access\DataSetTemp.xsx">
       <DependentUpon>DataSetTemp.xsd</DependentUpon>
     </None>
+    <None Include="app.config" />
     <None Include="Config\DataSetConfig.xsc">
       <DependentUpon>DataSetConfig.xsd</DependentUpon>
     </None>
@@ -663,7 +656,6 @@
     <None Include="Properties\DataSources\DisksDB.DataBase.DataSetSearch.datasource" />
     <EmbeddedResource Include="Resources\app.cdr" />
     <EmbeddedResource Include="Resources\gpl.rtf" />
-    <EmbeddedResource Include="Resources\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

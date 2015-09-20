@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,24 +19,22 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.DataBase;
+using DisksDB.Library;
+using DisksDB.Utils;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using DisksDB.DataBase;
-using DisksDB.Utils;
 using File = DisksDB.DataBase.File;
 
 namespace DisksDB.Access
 {
-	/// <summary>
-	/// Summary description for MsAccessDBLAyer.
-	/// </summary>
-	public class MsAccessDBLayer : IDBLayer
+	class MsAccessDBLayer : IDBLayer
 	{
 		public MsAccessDBLayer()
 		{
@@ -46,20 +44,28 @@ namespace DisksDB.Access
         {
             try
             {
-                DBUtils.ExecSQL(this.DBConString, "INSERT INTO [ImageCategories] ([Name], [id], [ParentCategory]) VALUES('DVD Box', 6, 1)", new object[] { });
+				using (var result = DBUtils.ExecSQL(this.DBConString, "SELECT [id] FROM [ImageCategories] WHERE [Name] = 'DVD Box'", new object[] { }))
+				{
+					if (false == result.HasRows)
+					{
+						DBUtils.ExecSQL(this.DBConString, "INSERT INTO [ImageCategories] ([Name], [id], [ParentCategory]) VALUES('DVD Box', 6, 1)", new object[] { });
+					}
+				}
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+				Debug.WriteLine(ex.Message);
+				Debug.WriteLine(ex.StackTrace);
             }
         }
 
 		public bool IsNewDataBase()
 		{
-			string fileName = "";
+			String fileName = "";
 
 			if (true == "".Equals(Path.GetDirectoryName(this.cfg.DataBaseFile)))
 			{
-				string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				String path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
 				fileName = path + "\\" + DisksDB.Config.Config.Instance.AppID + "\\" + this.cfg.DataBaseFile;
 			}
@@ -73,80 +79,79 @@ namespace DisksDB.Access
 
 		public void ResetDataBase()
 		{
-			Stream rs = Assembly.GetExecutingAssembly().GetManifestResourceStream("DisksDB.Access.Resources.initial.mdb");
-
-			string fileName = "";
-
-			if (true == "".Equals(Path.GetDirectoryName(this.cfg.DataBaseFile)))
+			using (Stream rs = Assembly.GetExecutingAssembly().GetManifestResourceStream("DisksDB.Resources.initial.mdb"))
 			{
-				string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				String fileName = "";
 
-				fileName = path + "\\" + DisksDB.Config.Config.Instance.AppID + "\\" + this.cfg.DataBaseFile;
+				if (true == "".Equals(Path.GetDirectoryName(this.cfg.DataBaseFile)))
+				{
+					String path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+					fileName = path + "\\" + DisksDB.Config.Config.Instance.AppID + "\\" + this.cfg.DataBaseFile;
+				}
+				else
+				{
+					fileName = this.cfg.DataBaseFile;
+				}
+
+				Utils.Utils.CreateFolders(fileName);
+
+				using (FileStream fs = new FileStream(fileName, FileMode.Create))
+				{
+					byte[] buffer = new byte[1024];
+
+					int size = rs.Read(buffer, 0, 1024);
+
+					while (size > 0)
+					{
+						fs.Write(buffer, 0, size);
+
+						size = rs.Read(buffer, 0, 1024);
+					}
+				}
 			}
-			else
-			{
-				fileName = this.cfg.DataBaseFile;
-			}
-
-			Utils.Utils.CreateFolders(fileName);
-
-			FileStream fs = new FileStream(fileName, FileMode.Create);
-
-			byte[] buffer = new byte[1024];
-
-			int size = rs.Read(buffer, 0, 1024);
-
-			while (size > 0)
-			{
-				fs.Write(buffer, 0, size);
-
-				size = rs.Read(buffer, 0, 1024);
-			}
-
-			rs.Close();
-			fs.Close();
 		}
 
-		public ArrayList GetInlayImages()
+		public List<Image> GetInlayImages()
 		{
 			return GetImages(EnumImageCategories.InlayImage);
 		}
 
-		public void UpdateInlayImage(Image img, string name, string fileName, byte[] data)
+		public void UpdateInlayImage(Image img, String name, String fileName, byte[] data)
 		{
 			UpdateImage(img, name, fileName, data);
 		}
 
-        public void UpdateDvdImage(Image img, string name, string fileName, byte[] data)
+        public void UpdateDvdImage(Image img, String name, String fileName, byte[] data)
         {
             UpdateImage(img, name, fileName, data);
         }
 
 		public byte[] LoadImage(Image img)
 		{
-			object o = DBUtils.ExecScalar(this.DBConString, "SELECT [Image] FROM [Images] WHERE [id] = ?", new object[] {img.Id});
+			Object o = DBUtils.ExecScalar(this.DBConString, "SELECT [Image] FROM [Images] WHERE [id] = ?", new object[] {img.Id});
 			byte[] b = (byte[]) o;
 			return b;
 		}
 
-		public Box AddCDBox(string name, string description, BoxType type, Image frontImage, Image backImage, Image inlayImage, Category cat)
+		public Box AddCDBox(String name, String description, BoxType type, Image frontImage, Image backImage, Image inlayImage, Category cat)
 		{
 			int id = DBUtils.InsertSQL(this.DBConString, "INSERT INTO [CDBoxes] ([Description], [Name], [BackImage], [InlayImage], [Type], [FrontImage], [Category]) VALUES(?, ?, ?, ?, ?, ?, ?)", new object[] {description, name, backImage.Id, inlayImage.Id, type.Id, frontImage.Id, cat.Id});
 
 			return new Box(name, description, id, backImage, inlayImage, type, frontImage, this, cat);
 		}
 
-		public void UpdateBackImage(Image img, string name, string fileName, byte[] data)
+		public void UpdateBackImage(Image img, String name, String fileName, byte[] data)
 		{
 			UpdateImage(img, name, fileName, data);
 		}
 
-		public void UpdateDiskImage(Image img, string name, string fileName, byte[] data)
+		public void UpdateDiskImage(Image img, String name, String fileName, byte[] data)
 		{
 			UpdateImage(img, name, fileName, data);
 		}
 
-		public DataSetSearch FindFile(string fileName, bool useMinSize, bool userMaxSize, bool useEquals, long minSize, long maxSize, long size)
+		public DataSetSearch FindFile(String fileName, bool useMinSize, bool userMaxSize, bool useEquals, long minSize, long maxSize, long size)
 		{
 			/**
 			 * Microsoft Access is unable to store 64-bit integers.
@@ -156,7 +161,7 @@ namespace DisksDB.Access
 
 			try
 			{
-				string sql = "SELECT [Files].[Date] AS [FileDate], [Files].[Name] AS [FileName], [Files].[Size], [Disks].[Name] AS [Disk], [CDBoxes].[Name] AS [Box], [Categories].[name] AS [Category], [Categories].[id] AS [CategoryId], [CDBoxes].[id] AS [BoxId], [Disks].[id] AS [DiskID], [Files].[Parent] AS [FileParentId] " +
+				String sql = "SELECT [Files].[Date] AS [FileDate], [Files].[Name] AS [FileName], [Files].[Size], [Disks].[Name] AS [Disk], [CDBoxes].[Name] AS [Box], [Categories].[name] AS [Category], [Categories].[id] AS [CategoryId], [CDBoxes].[id] AS [BoxId], [Disks].[id] AS [DiskID], [Files].[Parent] AS [FileParentId] " +
 					" FROM [Categories] INNER JOIN ([CDBoxes] INNER JOIN ([Disks] INNER JOIN [Files] ON [Disks].[id] = [Files].[Disk]) ON [CDBoxes].[id] = [Disks].[CDBox]) ON [Categories].[id] = [CDBoxes].[Category] " +
 					"WHERE " +
 					"([Files].[Name] LIKE '" + fileName.Replace("'", "''").Replace("*", "%") + "') ";
@@ -207,32 +212,30 @@ namespace DisksDB.Access
 			{
 				Logger.LogException(ex);
 			}
-			finally
-			{
-			}
 
 			return null;
 		}
 
-		public ArrayList GetChildCategories(Category parentCat)
+		public List<Category> GetChildCategories(Category parentCat)
 		{
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT Name, id, Description FROM Categories WHERE Parent = ? ORDER BY Name", new object[] {parentCat.Id});
-
-			ArrayList lst = new ArrayList();
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT Name, id, Description FROM Categories WHERE Parent = ? ORDER BY Name", new Object[] { parentCat.Id }))
 			{
-				Category cat = new Category((string) myReader["Name"], (myReader["Description"] is DBNull) ? "" : (string) myReader["Description"], (int) myReader["id"], this, parentCat);
+				List<Category> lst = new List<Category>();
 
-				lst.Add(cat);
+				while (true == myReader.Read())
+				{
+					Category cat = new Category((String)myReader["Name"], (myReader["Description"] is DBNull) ? "" : (string)myReader["Description"], (int)myReader["id"], this, parentCat);
+
+					lst.Add(cat);
+				}
+
+				myReader.Close();
+
+				return lst;
 			}
-
-			myReader.Close();
-
-			return lst;
 		}
 
-		public ArrayList GetBackImages()
+		public List<Image> GetBackImages()
 		{
 			return GetImages(EnumImageCategories.BackImage);
 		}
@@ -242,43 +245,41 @@ namespace DisksDB.Access
 			DBUtils.ExecSQL(this.DBConString, "DELETE FROM [Disks] WHERE [id]= ?", new object[] {d.Id});
 		}
 
-		public ArrayList GetFiles(File file)
+		public List<File> GetFiles(File file)
 		{
-			ArrayList lst = new ArrayList();
-
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Name], [Size], [Date], [Attributes], [Parent], [Disk] FROM [Files] WHERE ([Parent] = ?) ORDER BY [Attributes] DESC, [Name] ASC", new object[] {file.Id});
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Name], [Size], [Date], [Attributes], [Parent], [Disk] FROM [Files] WHERE ([Parent] = ?) ORDER BY [Attributes] DESC, [Name] ASC", new object[] { file.Id }))
 			{
-				string attr = myReader[4].ToString();
-				File f = new File(this, (int) (myReader[0]), (string) (myReader[1]), long.Parse(myReader[2].ToString()), DateTime.Parse(myReader[3].ToString()), int.Parse(attr));
-				lst.Add(f);
+				List<File> lst = new List<File>();
+
+				while (true == myReader.Read())
+				{
+					string attr = myReader[4].ToString();
+
+					lst.Add(new File(this, (int)(myReader[0]), (string)(myReader[1]), long.Parse(myReader[2].ToString()), DateTime.Parse(myReader[3].ToString()), int.Parse(attr)));
+				}
+
+				return lst;
 			}
-
-			myReader.Close();
-
-			return lst;
 		}
 
-		public ArrayList GetFiles(Disk disk)
+		public List<File> GetFiles(Disk disk)
 		{
-			ArrayList lst = new ArrayList();
-
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Name], [Size], [Date], [Attributes], [Parent], [Disk] FROM [Files] WHERE ([Disk] = ?) AND ([Parent] IS NULL) ORDER BY [Attributes] DESC, [Name] ASC", new object[] {disk.Id});
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Name], [Size], [Date], [Attributes], [Parent], [Disk] FROM [Files] WHERE ([Disk] = ?) AND ([Parent] IS NULL) ORDER BY [Attributes] DESC, [Name] ASC", new object[] { disk.Id }))
 			{
-				string attr = myReader[4].ToString();
-				File f = new File(this, (int) (myReader[0]), (string) (myReader[1]), long.Parse(myReader[2].ToString()), DateTime.Parse(myReader[3].ToString()), int.Parse(attr));
-				lst.Add(f);
+				List<File> lst = new List<File>();
+
+				while (true == myReader.Read())
+				{
+					string attr = myReader[4].ToString();
+					File f = new File(this, (int)(myReader[0]), (string)(myReader[1]), long.Parse(myReader[2].ToString()), DateTime.Parse(myReader[3].ToString()), int.Parse(attr));
+					lst.Add(f);
+				}
+
+				return lst;
 			}
-
-			myReader.Close();
-
-			return lst;
 		}
 
-		public Disk AddDisk(string name, DiskType type, Image image, Box box, string driveLetter, IAddDiskProgress prog, bool addFiles)
+		public Disk AddDisk(String name, DiskType type, Image image, Box box, String driveLetter, IAddDiskProgress prog, bool addFiles)
 		{
 			try
 			{
@@ -291,40 +292,41 @@ namespace DisksDB.Access
 
 				prog.Total(files);
 
-				OleDbConnection sqlCon = new OleDbConnection(this.DBConString);
-				sqlCon.Open();
-				OleDbTransaction sqlTran = sqlCon.BeginTransaction();
-
-				OleDbCommand sqlCmd = new OleDbCommand("INSERT INTO [Disks] ([DiskImage], [CDBox], [Name], [Type], [Description]) VALUES(?, ?, ?, ?, ?)", sqlCon, sqlTran);
-
-				sqlCmd.Parameters.AddWithValue("@image", image.Id);
-                sqlCmd.Parameters.AddWithValue("@box", box.Id);
-                sqlCmd.Parameters.AddWithValue("@name", name);
-                sqlCmd.Parameters.AddWithValue("@type", type.Id);
-                sqlCmd.Parameters.AddWithValue("@desc", "/* TBD */");
-
-				sqlCmd.ExecuteNonQuery();
-
-				OleDbCommand oleCmdIdentity = new OleDbCommand("SELECT @@IDENTITY", sqlCon, sqlTran);
-
-				int rez = (int) oleCmdIdentity.ExecuteScalar();
-
-
-				if (true == addFiles)
+				using (OleDbConnection sqlCon = new OleDbConnection(this.DBConString))
 				{
-					long diskId = rez;
+					sqlCon.Open();
+					OleDbTransaction sqlTran = sqlCon.BeginTransaction();
 
-					files = 0;
+					OleDbCommand sqlCmd = new OleDbCommand("INSERT INTO [Disks] ([DiskImage], [CDBox], [Name], [Type], [Description]) VALUES(?, ?, ?, ?, ?)", sqlCon, sqlTran);
 
-					prog.Started();
+					sqlCmd.Parameters.AddWithValue("@image", image.Id);
+					sqlCmd.Parameters.AddWithValue("@box", box.Id);
+					sqlCmd.Parameters.AddWithValue("@name", name);
+					sqlCmd.Parameters.AddWithValue("@type", type.Id);
+					sqlCmd.Parameters.AddWithValue("@desc", "/* TBD */");
 
-					AddFolder(driveLetter, prog, true, ref files, false, sqlTran, -1, diskId);
+					sqlCmd.ExecuteNonQuery();
+
+					OleDbCommand oleCmdIdentity = new OleDbCommand("SELECT @@IDENTITY", sqlCon, sqlTran);
+
+					int rez = (int)oleCmdIdentity.ExecuteScalar();
+
+					if (true == addFiles)
+					{
+						long diskId = rez;
+
+						files = 0;
+
+						prog.Started();
+
+						AddFolder(driveLetter, prog, true, ref files, false, sqlTran, -1, diskId);
+					}
+
+					sqlTran.Commit();
+					prog.Finished();
+
+					return new Disk(this, rez, name, image, type, box);
 				}
-
-				sqlTran.Commit();
-				prog.Finished();
-
-				return new Disk(this, rez, name, image, type, box);
 			}
 			catch (Exception ex)
 			{
@@ -334,36 +336,32 @@ namespace DisksDB.Access
 			return null;
 		}
 
-        public Image AddBackImage(string name, string fileName, byte[] data)
+        public Image AddBackImage(String name, String fileName, byte[] data)
         {
             return AddImage(EnumImageCategories.BackImage, name, fileName, data, EnumImageCategories.BackImage);
         }
 
-        public Image AddDvdImage(string name, string fileName, byte[] data)
+        public Image AddDvdImage(String name, String fileName, byte[] data)
         {
             return AddImage(EnumImageCategories.DvdImage, name, fileName, data, EnumImageCategories.BackImage);
         }
 
-		public ArrayList GetDisks(Box box)
+		public List<Disk> GetDisks(Box box)
 		{
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [DiskImage], [CDBox], [Name], [Type] FROM [Disks] WHERE [CDBox] = ? ORDER BY [Name]", new object[] {box.Id});
-
-			ArrayList lst = new ArrayList();
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [DiskImage], [CDBox], [Name], [Type] FROM [Disks] WHERE [CDBox] = ? ORDER BY [Name]", new object[] { box.Id }))
 			{
-				Disk d = new Disk(this, (int) (myReader[0]), (string) (myReader[3]),
-				                  db.DiskImages.GetImage((int) myReader[1]),
-				                  GetDiskType((int) myReader[4]), box);
-				lst.Add(d);
+				List<Disk> lst = new List<Disk>();
+
+				while (true == myReader.Read())
+				{
+					lst.Add(new Disk(this, (int)(myReader[0]), (string)(myReader[3]), db.DiskImages.GetImage((int)myReader[1]), GetDiskType((int)myReader[4]), box));
+				}
+
+				return lst;
 			}
-
-			myReader.Close();
-
-			return lst;
 		}
 
-		public Category AddCategory(string name, string description, Category parent)
+		public Category AddCategory(String name, String description, Category parent)
 		{
 			int id = DBUtils.InsertSQL(this.DBConString, "INSERT INTO Categories (Name, Parent, Description) VALUES(?, ?, ?)", new object[] {name, parent.Id, description});
 
@@ -380,20 +378,19 @@ namespace DisksDB.Access
 			DBUtils.DeleteSQL(this.DBConString, "DELETE FROM Categories WHERE id = ?", new object[] {category.Id});
 		}
 
-		public ArrayList GetDiskTypes()
+		public List<DiskType> GetDiskTypes()
 		{
-			OleDbDataReader r = DBUtils.ExecSQL(this.DBConString, "SELECT id, Name FROM CDTypes ORDER BY Name", null);
-
-			ArrayList a = new ArrayList();
-
-			while (r.Read())
+			using (OleDbDataReader r = DBUtils.ExecSQL(this.DBConString, "SELECT id, Name FROM CDTypes ORDER BY Name", null))
 			{
-				a.Add(new DiskType((int) r["id"], (string) r["Name"]));
+				List<DiskType> a = new List<DiskType>();
+
+				while (r.Read())
+				{
+					a.Add(new DiskType((int)r["id"], (string)r["Name"]));
+				}
+
+				return a;
 			}
-
-			r.Close();
-
-			return a;
 		}
 
 		public void DeleteBackImage(Image img)
@@ -401,12 +398,12 @@ namespace DisksDB.Access
 			DeleteImage(img.Id);
 		}
 
-        public ArrayList GetFrontImages()
+        public List<Image> GetFrontImages()
         {
             return GetImages(EnumImageCategories.FrontImage);
         }
 
-        public ArrayList GetDvdImages()
+        public List<Image> GetDvdImages()
         {
             return GetImages(EnumImageCategories.DvdImage);
         }
@@ -421,7 +418,7 @@ namespace DisksDB.Access
             DeleteImage(img.Id);
         }
 
-		public void UpdateCategory(Category category, string newName, string newDescription, Category newParent)
+		public void UpdateCategory(Category category, String newName, String newDescription, Category newParent)
 		{
 			DBUtils.UpdateSQL(this.DBConString, "UPDATE Categories SET Name = ?, Description = ?, Parent = ?, LastUpdate = NOW WHERE id = ?", new object[] {newName, newDescription, newParent.Id, category.Id});
 		}
@@ -431,22 +428,25 @@ namespace DisksDB.Access
 			DeleteImage(img.Id);
 		}
 
-		public Image AddInlayImage(string name, string fileName, byte[] data)
+		public Image AddInlayImage(String name, String fileName, byte[] data)
 		{
 			return AddImage(EnumImageCategories.InlayImage, name, fileName, data, EnumImageCategories.InlayImage);
 		}
 
-		public Image AddFrontImage(string name, string fileName, byte[] data)
+		public Image AddFrontImage(String name, String fileName, byte[] data)
 		{
 			return AddImage(EnumImageCategories.FrontImage, name, fileName, data, EnumImageCategories.FrontImage);
 		}
 
 		public DataBase.DataBase DataBase
 		{
-			set { this.db = value; }
+			set
+			{
+				this.db = value;
+			}
 		}
 
-		public ArrayList GetDiskImages()
+		public List<Image> GetDiskImages()
 		{
 			return GetImages(EnumImageCategories.DiskImage);
 		}
@@ -456,72 +456,69 @@ namespace DisksDB.Access
 			DBUtils.DeleteSQL(this.DBConString, "DELETE FROM [CDBoxes] WHERE [id] = ?", new object[] {box.Id});
 		}
 
-		public ArrayList GetChildCDBoxes(Category parentCat)
+		public List<Box> GetChildCDBoxes(Category parentCat)
 		{
-			ArrayList lst = new ArrayList();
-
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Description], [Name], [BackImage], [InlayImage], [Type], [FrontImage] FROM [CDBoxes] WHERE [Category] = ? ORDER BY [Name]", new object[] {parentCat.Id});
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Description], [Name], [BackImage], [InlayImage], [Type], [FrontImage] FROM [CDBoxes] WHERE [Category] = ? ORDER BY [Name]", new object[] { parentCat.Id }))
 			{
-				Box box = new Box((string) (myReader["Name"]), (string) (myReader["Description"]),
-				                  (int) (myReader["id"]),
-				                  db.BackImages.GetImage((int) myReader["BackImage"]),
-				                  db.InlayImages.GetImage((int) myReader["InlayImage"]),
-				                  GetCDBoxType((int) myReader["Type"]),
-				                  db.FrontImages.GetImage((int) myReader["FrontImage"]),
-				                  this, parentCat);
-				lst.Add(box);
+				List<Box> lst = new List<Box>();
+
+				while (true == myReader.Read())
+				{
+					Box box = new Box((string)(myReader["Name"]), (string)(myReader["Description"]),
+									  (int)(myReader["id"]),
+									  db.BackImages.GetImage((int)myReader["BackImage"]),
+									  db.InlayImages.GetImage((int)myReader["InlayImage"]),
+									  GetCDBoxType((int)myReader["Type"]),
+									  db.FrontImages.GetImage((int)myReader["FrontImage"]),
+									  this, parentCat);
+					lst.Add(box);
+				}
+
+				return lst;
 			}
-
-			myReader.Close();
-
-			return lst;
 		}
 
-		public ArrayList GetCDBoxTypes()
+		public List<BoxType> GetCDBoxTypes()
 		{
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Name] FROM [CDCaseTypes] ORDER BY [Name]", null);
-
-			ArrayList lst = new ArrayList();
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [Name] FROM [CDCaseTypes] ORDER BY [Name]", null))
 			{
-				lst.Add(new BoxType((int) myReader["id"], (string) myReader["Name"]));
+				List<BoxType> lst = new List<BoxType>();
+
+				while (true == myReader.Read())
+				{
+					lst.Add(new BoxType((int)myReader["id"], (string)myReader["Name"]));
+				}
+
+				return lst;
 			}
-
-			myReader.Close();
-
-			return lst;
 		}
 
 		public Category GetRootCategory()
 		{
-			Category cat = null;
-
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT Name, id, Description FROM Categories WHERE Parent IS NULL", null);
-
-			if (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT Name, id, Description FROM Categories WHERE Parent IS NULL", null))
 			{
-				cat = new Category((string) myReader["Name"], (string) myReader["Description"], (int) myReader["id"], this, null);
+				Category cat = null;
+
+				if (true == myReader.Read())
+				{
+					cat = new Category((string)myReader["Name"], (string)myReader["Description"], (int)myReader["id"], this, null);
+				}
+
+				return cat;
 			}
-
-			myReader.Close();
-
-			return cat;
 		}
 
-		public void UpdateCDBox(Box box, string newName, string newDescription, Image newBack, Image newFront, Image newInlay, BoxType newType, Category newParent)
+		public void UpdateCDBox(Box box, String newName, String newDescription, Image newBack, Image newFront, Image newInlay, BoxType newType, Category newParent)
 		{
 			DBUtils.UpdateSQL(this.DBConString, "UPDATE [CDBoxes] SET [Description] = ?, [Name] = ?, [BackImage] = ?, [InlayImage] = ?, [Type] = ?,  [FrontImage] = ?, [Category]	= ?, [LastUpdate] = NOW() WHERE [id] = ?", new object[] {newDescription, newName, newBack.Id, newInlay.Id, newType.Id, newFront.Id, newParent.Id, box.Id});
 		}
 
-		public void UpdateDisk(Disk disk, string name, DiskType type, Image image, Box box)
+		public void UpdateDisk(Disk disk, String name, DiskType type, Image image, Box box)
 		{
 			DBUtils.UpdateSQL(this.DBConString, "UPDATE [Disks] SET [DiskImage] = ?, [Name] = ?, [Type] = ?, [CDBox] = ?, [LastUpdate] = NOW() WHERE [id] = ?", new object[] {image.Id, name, type.Id, box.Id, disk.Id});
 		}
 
-		public void UpdateFrontImage(Image img, string name, string fileName, byte[] data)
+		public void UpdateFrontImage(Image img, String name, String fileName, byte[] data)
 		{
 			UpdateImage(img, name, fileName, data);
 		}
@@ -531,22 +528,28 @@ namespace DisksDB.Access
 			DeleteImage(img.Id);
 		}
 
-		public Image AddDiskImage(string name, string fileName, byte[] data)
+		public Image AddDiskImage(String name, String fileName, byte[] data)
 		{
 			return AddImage(EnumImageCategories.DiskImage, name, fileName, data, EnumImageCategories.DiskImage);
 		}
 
-		public string Name
+		public String Name
 		{
-			get { return "Microsoft Access Data Base"; }
+			get
+			{
+				return "Microsoft Access Data Base";
+			}
 		}
 
-		public object ConfigObject
+		public Object ConfigObject
 		{
-			get { return this.cfg; }
+			get
+			{
+				return this.cfg;
+			}
 		}
 
-		private Image AddImage(EnumImageCategories category, string name, string fileName, byte[] data, EnumImageCategories imageType)
+		private Image AddImage(EnumImageCategories category, String name, String fileName, byte[] data, EnumImageCategories imageType)
 		{
 			byte[] buffer = data;
 
@@ -554,44 +557,43 @@ namespace DisksDB.Access
 			{
 				if (null == buffer)
 				{
-					FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-					buffer = new byte[stream.Length];
-					stream.Read(buffer, 0, (int) stream.Length);
-					stream.Close();
+					using (FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+					{
+						buffer = new byte[stream.Length];
+						stream.Read(buffer, 0, (int)stream.Length);
+					}
 				}
 			}
-
 
 			int id = DBUtils.InsertSQL(this.DBConString, "INSERT INTO Images ([FileName], [Image], [Name], [ImageCategory]) VALUES(?, ?, ?, ?)", new object[] {fileName, buffer, name, category});
 
 			return new Image(this, id, name, id, buffer, imageType, true);
 		}
 
-		private ArrayList GetImages(EnumImageCategories category)
+		private List<Image> GetImages(EnumImageCategories category)
 		{
-			ArrayList a = new ArrayList();
-
-			OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [FileName], [Name], [Deleteable] FROM [Images] WHERE ([ImageCategory] = ?) ORDER BY [Name]", new object[] {category});
-
-			while (true == myReader.Read())
+			using (OleDbDataReader myReader = DBUtils.ExecSQL(this.DBConString, "SELECT [id], [FileName], [Name], [Deleteable] FROM [Images] WHERE ([ImageCategory] = ?) ORDER BY [Name]", new object[] { category }))
 			{
-				Image img = null;
+				List<Image> a = new List<Image>();
 
-				try
+				while (true == myReader.Read())
 				{
-					img = new Image(this, (int) myReader["id"], (string) myReader["Name"], (int) myReader["id"], category, (bool) myReader["Deleteable"]);
-				}
-				catch (Exception)
-				{
-					img = new Image(this, (int) myReader["id"], (string) myReader["name"], -1, category, (bool) myReader["Deleteable"]);
+					Image img = null;
+
+					try
+					{
+						img = new Image(this, (int)myReader["id"], (string)myReader["Name"], (int)myReader["id"], category, (bool)myReader["Deleteable"]);
+					}
+					catch (Exception)
+					{
+						img = new Image(this, (int)myReader["id"], (string)myReader["name"], -1, category, (bool)myReader["Deleteable"]);
+					}
+
+					a.Add(img);
 				}
 
-				a.Add(img);
+				return a;
 			}
-
-			myReader.Close();
-
-			return a;
 		}
 
 		private void DeleteImage(long id)
@@ -599,7 +601,7 @@ namespace DisksDB.Access
 			DBUtils.DeleteSQL(this.DBConString, "DELETE FROM [Images] WHERE [id] = ?", new object[] {id});
 		}
 
-		private void UpdateImage(Image img, string name, string fileName, byte[] data)
+		private void UpdateImage(Image img, String name, String fileName, byte[] data)
 		{
 			byte[] buffer = data;
 
@@ -607,10 +609,11 @@ namespace DisksDB.Access
 			{
 				if (null == buffer)
 				{
-					FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-					buffer = new byte[stream.Length];
-					stream.Read(buffer, 0, (int) stream.Length);
-					stream.Close();
+					using (FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+					{
+						buffer = new byte[stream.Length];
+						stream.Read(buffer, 0, (int)stream.Length);
+					}
 				}
 			}
 			else
@@ -652,7 +655,7 @@ namespace DisksDB.Access
 			throw new Exception("CD Box Type not found");
 		}
 
-		private void AddFolder(string root, IAddDiskProgress p, bool isRoot, ref long files, bool count, OleDbTransaction sqlTran, long parent, long track)
+		private void AddFolder(String root, IAddDiskProgress p, bool isRoot, ref long files, bool count, OleDbTransaction sqlTran, long parent, long track)
 		{
 			DirectoryInfo di = new DirectoryInfo(root);
 
@@ -718,17 +721,17 @@ namespace DisksDB.Access
 				}
 
                 cmd.Parameters.AddWithValue("@name", fi.Name);
-                cmd.Parameters.AddWithValue("@dat", OleDbType.Date);
-                cmd.Parameters.Add("@attributes", OleDbType.BigInt, 8);
+				cmd.Parameters.Add("@dat", OleDbType.Date);
+				cmd.Parameters.Add("@attributes", OleDbType.BigInt, 8);
                 cmd.Parameters.AddWithValue("@disk", diskId);
 
 				try
 				{
-					cmd.Parameters[1].Value = fi.CreationTime;
+					cmd.Parameters["@dat"].Value = fi.CreationTime;
 				}
 				catch (Exception)
 				{
-					cmd.Parameters[1].Value = DateTime.Now;
+					cmd.Parameters["@dat"].Value = DateTime.Now;
 				}
 
 				cmd.Parameters[2].Value = 1;
@@ -753,44 +756,44 @@ namespace DisksDB.Access
 			}
 		}
 
-		private void AddFile(long diskId, long parentId, FileInfo fi, OleDbTransaction sqlTran)
+		private void AddFile(long diskId, long parentId, FileInfo fileInfo, OleDbTransaction transaction)
 		{
 			try
 			{
-				OleDbCommand cmd = null;
+				OleDbCommand command = null;
 
 				if (-1 != parentId)
 				{
-					cmd = new OleDbCommand("INSERT INTO [Files] ([Name], [Size], [Date], [Attributes], [Disk], [Parent]) VALUES(?, ?, ?, ?, ?, ?)", sqlTran.Connection, sqlTran);
+					command = new OleDbCommand("INSERT INTO [Files] ([Name], [Size], [Date], [Attributes], [Disk], [Parent]) VALUES(?, ?, ?, ?, ?, ?)", transaction.Connection, transaction);
 				}
 				else
 				{
-					cmd = new OleDbCommand("INSERT INTO [Files] ([Name], [Size], [Date], [Attributes], [Disk]) VALUES(?, ?, ?, ?, ?)", sqlTran.Connection, sqlTran);
+					command = new OleDbCommand("INSERT INTO [Files] ([Name], [Size], [Date], [Attributes], [Disk]) VALUES(?, ?, ?, ?, ?)", transaction.Connection, transaction);
 				}
 
-                cmd.Parameters.AddWithValue("@name", fi.Name);
-                cmd.Parameters.AddWithValue("@siz", fi.Length);
-                cmd.Parameters.AddWithValue("@dat", OleDbType.Date);
-				cmd.Parameters.Add("@attributes", OleDbType.BigInt, 8);
-                cmd.Parameters.AddWithValue("@disk", diskId);
+                command.Parameters.AddWithValue("@name", fileInfo.Name);
+                command.Parameters.AddWithValue("@siz", fileInfo.Length);
+                command.Parameters.Add("@dat", OleDbType.Date);
+				command.Parameters.Add("@attributes", OleDbType.BigInt, 8);
+                command.Parameters.AddWithValue("@disk", diskId);
 
 				try
 				{
-					cmd.Parameters[2].Value = fi.CreationTime;
+					command.Parameters["@dat"].Value = fileInfo.CreationTime;
 				}
 				catch (Exception)
 				{
-					cmd.Parameters[2].Value = DateTime.Now;
+					command.Parameters["@dat"].Value = DateTime.Now;
 				}
 
-				cmd.Parameters[3].Value = 0;
+				command.Parameters["@attributes"].Value = 0;
 
 				if (-1 != parentId)
 				{
-                    cmd.Parameters.AddWithValue("@parent", parentId);
+                    command.Parameters.AddWithValue("@parent", parentId);
 				}
 
-				cmd.ExecuteNonQuery();
+				command.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -816,11 +819,11 @@ namespace DisksDB.Access
 		{
 			get
 			{
-				string fileName = "";
+				String fileName = "";
 
 				if (true == "".Equals(Path.GetDirectoryName(this.cfg.DataBaseFile)))
 				{
-					string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+					String path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
 					fileName = path + "\\" + DisksDB.Config.Config.Instance.AppID + "\\" + this.cfg.DataBaseFile;
 				}
@@ -829,11 +832,12 @@ namespace DisksDB.Access
 					fileName = this.cfg.DataBaseFile;
 				}
 
-				return "Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Registry Path=;Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Database Password=;Data Source=\"" + fileName + "\";Password=;Jet OLEDB:Engine Type=5;Jet OLEDB:Global Bulk Transactions=1;Provider=\"Microsoft.Jet.OLEDB.4.0\";Jet OLEDB:System database=;Jet OLEDB:SFP=False;Extended Properties=;Mode=Share Deny None;Jet OLEDB:New Database Password=;Jet OLEDB:Create System Database=False;Jet OLEDB:Don't Copy Locale on Compact=False;Jet OLEDB:Compact Without Replica Repair=False;User ID=Admin;Jet OLEDB:Encrypt Database=False";
+				//return "Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Registry Path=;Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Database Password=;Data Source=\"" + fileName + "\";Password=;Jet OLEDB:Engine Type=5;Jet OLEDB:Global Bulk Transactions=1;Provider=\"Microsoft.Jet.OLEDB.4.0\";Jet OLEDB:System database=;Jet OLEDB:SFP=False;Extended Properties=;Mode=Share Deny None;Jet OLEDB:New Database Password=;Jet OLEDB:Create System Database=False;Jet OLEDB:Don't Copy Locale on Compact=False;Jet OLEDB:Compact Without Replica Repair=False;User ID=Admin;Jet OLEDB:Encrypt Database=False";
+				return "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileName + "; Persist Security Info = False;";
 			}
 		}
 
-		public override string ToString()
+		public override String ToString()
 		{
 			return this.Name;
 		}
@@ -918,7 +922,7 @@ namespace DisksDB.Access
 			}
 		}
 
-		public void FillChanges(DateTime timeStamp, long[] existingIds, DataTable dtToFill, string fields, string table, long fromId, long toId)
+		public void FillChanges(DateTime timeStamp, long[] existingIds, DataTable dtToFill, String fields, String table, long fromId, long toId)
 		{
 			/// Flag Values:
 			/// 0 - New
@@ -1080,17 +1084,11 @@ namespace DisksDB.Access
 
 		public DataSetSync GetCategories()
 		{
-			Console.WriteLine("GET CAT");
-
-
-//			System.Windows.Forms.MessageBox.Show("GET CAT");
-
 			DataSetSync ds = new DataSetSync();
-
 
 			try
 			{
-				DBUtils.FillDataTable(ds.Categories, this.DBConString, "SELECT [id], [Name], [Parent], [LastUpdate] FROM [Categories]", new object[] {});
+				DBUtils.FillDataTable(ds.Categories, this.DBConString, "SELECT [id], [Name], [Parent], [LastUpdate] FROM [Categories]", new object[] { });
 			}
 			catch (Exception ex)
 			{
@@ -1135,7 +1133,7 @@ namespace DisksDB.Access
 			return null;
 		}
 
-		public void EndFilesAdd(object transaction, bool commit)
+		public void EndFilesAdd(Object transaction, bool commit)
 		{
 		}
 
@@ -1144,7 +1142,7 @@ namespace DisksDB.Access
 			return (int) DBUtils.ExecScalar(this.DBConString, "SELECT COUNT(id) FROM [Disks]", new object[] {});
 		}
 
-		public string GetDataBaseId()
+		public String GetDataBaseId()
 		{
 			object uid = DBUtils.ExecScalar(this.DBConString, "SELECT TOP 1 [DataBaseGUID] FROM [Settings]", new object[] {});
 

@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,18 +19,15 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using DisksDB.DataBase;
 using DisksDB.Utils;
+using System;
+using System.Drawing;
+using System.Threading;
 
 namespace DisksDB.UserInterface
 {
-	public class FormCopyDataBase : DisksDB.UserInterface.FormWizardBase, IProgress
+	class FormCopyDataBase : DisksDB.UserInterface.FormWizardBase, IProgress
 	{
 		private System.Windows.Forms.PropertyGrid propertyGrid;
 		private System.Windows.Forms.ComboBox comboBox1;

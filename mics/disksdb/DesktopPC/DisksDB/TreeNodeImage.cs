@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -28,7 +28,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Summary description for TreeNodeImage.
 	/// </summary>
-	public class TreeNodeImage : TreeNodeBase
+	class TreeNodeImage : TreeNodeBase
 	{
 		private Image img;
 		private ImageFactory imgFact;

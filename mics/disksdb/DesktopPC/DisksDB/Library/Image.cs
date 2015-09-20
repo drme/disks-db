@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -26,9 +26,9 @@ using System;
 namespace DisksDB.DataBase
 {
 	/// <summary>
-	/// Base class of iamges
+	/// Base class of images
 	/// </summary>
-	public class Image : BaseObject
+	class Image : BaseObject
 	{
 		public Image(IDBLayer idb, long id, string name, long picId, EnumImageCategories imageType, bool deleteable) : base(idb, id)
 		{

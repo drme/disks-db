@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,6 +19,8 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.Library;
+using DisksDB.Utils;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -26,23 +28,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using DisksDB.Utils;
 
 namespace DisksDB.DataBase
 {
-	/// <summary>
-	/// Summary description for SyncServer.
-	/// </summary>
-	public class SyncServer
+	class SyncServer
 	{
 		private SyncServer()
 		{
 			this.mutex.WaitOne();
-
-			this.sharedMem = new SharedMemory(true, "DisksDB.SharedMem1.{5A76CE94-3E60-4773-B897-62E7FE2A0053}", 10);
-
-			this.sharedMem.Data = true;
-
 			this.mutex.ReleaseMutex();
 		}
 
@@ -50,7 +43,7 @@ namespace DisksDB.DataBase
 		{
 			this.mutex.WaitOne();
 
-			bool run = (bool)this.sharedMem.Data;
+			bool run = true;
 
 			this.mutex.ReleaseMutex();
 
@@ -81,10 +74,10 @@ namespace DisksDB.DataBase
 
 		public void Start()
 		{
-            Start("192.168.55.100");
+            Start("0.0.0.0");
 		}
 
-		public void Start(string listenAddress)
+		public void Start(String listenAddress)
 		{
             if (true == this.IsRunning)
             {
@@ -193,7 +186,7 @@ namespace DisksDB.DataBase
             }
 		}
 
-		private string BuildBoxes(string str)
+		private String BuildBoxes(String str)
 		{
 			string[] ids = str.Split('|');
 
@@ -242,7 +235,7 @@ namespace DisksDB.DataBase
 			return sb.ToString();
 		}
 
-		private string BuildDisks(string str)
+		private String BuildDisks(String str)
 		{
 			string[] ids = str.Split('|');
 
@@ -292,7 +285,7 @@ namespace DisksDB.DataBase
 			return sb.ToString();
 		}
 
-		private void SendFiles(string str, TcpClient tcpClient)
+		private void SendFiles(String str, TcpClient tcpClient)
 		{
 			/**
 			 * Breaked in parts files list sending
@@ -358,7 +351,7 @@ namespace DisksDB.DataBase
 			SendMessage("e", tcpClient);
 		}
 
-		private string BuildCategories(string str)
+		private String BuildCategories(String str)
 		{
 			string[] ids = str.Split('|');
 
@@ -407,7 +400,7 @@ namespace DisksDB.DataBase
 			return sb.ToString();
 		}
 
-		private bool ParseCommand(string str, TcpClient tcpClient)
+		private bool ParseCommand(String str, TcpClient tcpClient)
 		{
 			Debug.WriteLine("Got Command [" + str + "]");
 
@@ -444,7 +437,7 @@ namespace DisksDB.DataBase
 			return false;
 		}
 
-		private void SendMessage(string msg, TcpClient tcpClient)
+		private void SendMessage(String msg, TcpClient tcpClient)
 		{
 			msg += "\n";
 
@@ -487,12 +480,10 @@ namespace DisksDB.DataBase
 		private TcpListener server = null;
 		private bool running = false;
 		private Thread thread = null;
-		private string listenAddress = null;
 		private static SyncServer syncServer = null;
 		private static TimeSpan defaultSleep = new TimeSpan(1000);
 		private static int defaultServerPort = 29465;
 		private bool shutdownOnClientDisconnect = false;
-		private SharedMemory sharedMem = null;
 		private Mutex mutex = new Mutex(false, "DisksDB.Mutex.{5A76CE94-3E60-4773-B897-62E7FE2A0053}");
     }
 }

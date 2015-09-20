@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for InfoView.
 	/// </summary>
-	public class FormInfoView : WeifenLuo.WinFormsUI.DockContent, INativeRename
+	class FormInfoView : WeifenLuo.WinFormsUI.DockContent, INativeRename
 	{
 		private ListView listView;
 		private ColumnHeader columnHeaderName;
@@ -139,14 +138,6 @@ namespace DisksDB.UserInterface
 		}
 
 		#endregion
-
-//		public ListView List
-//		{
-//			get
-//			{
-//				return this.listView;
-//			}
-//		}
 
 		public void SetRootItem(IListItem rootItem)
 		{
@@ -336,7 +327,6 @@ namespace DisksDB.UserInterface
 				base.Text = value;
 			}
 		}
-
 
 		private void listView_DoubleClick(object sender, System.EventArgs e)
 		{

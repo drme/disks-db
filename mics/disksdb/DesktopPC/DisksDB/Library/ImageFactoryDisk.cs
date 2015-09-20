@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 namespace DisksDB.DataBase
 {
-	public class ImageFactoryDisk : ImageFactory
+	class ImageFactoryDisk : ImageFactory
 	{
 		public ImageFactoryDisk(IDBLayer idb) : base(idb)
 		{

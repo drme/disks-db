@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -27,7 +27,7 @@ using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
-	public class ControlNewCover : UserControl
+	class ControlNewCover : UserControl
 	{
 		private PictureBox pictureBox1;
 		private ComboBox comboBox1;
@@ -167,7 +167,7 @@ namespace DisksDB.UserInterface
 			try
 			{
 				this.comboBox1.Items.Clear();
-				ArrayList images = this.imgFact.GetImages();
+				var images = this.imgFact.GetImages();
 
 				foreach (Image img in images)
 				{

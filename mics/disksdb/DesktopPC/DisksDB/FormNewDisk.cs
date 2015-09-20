@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,19 +19,16 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.DataBase;
+using DisksDB.Utils;
 using System;
 using System.Management;
 using System.Threading;
 using System.Windows.Forms;
-using DisksDB.DataBase;
-using DisksDB.Utils;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for NewDiskForm.
-	/// </summary>
-	public class FormNewDisk : FormWizardBase, IAddDiskProgress
+	class FormNewDisk : FormWizardBase, IAddDiskProgress
 	{
 		private DisksDB.DataBase.Disk addedDisk = null;
 		private delegate string GetDriveLetterDelegate();
@@ -291,7 +288,7 @@ namespace DisksDB.UserInterface
             this.comboBoxDiskType.Name = "comboBoxDiskType";
             this.comboBoxDiskType.Size = new System.Drawing.Size(312, 21);
             this.comboBoxDiskType.TabIndex = 3;
-            this.comboBoxDiskType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDiskType_SelectedIndexChanged);
+            this.comboBoxDiskType.SelectedIndexChanged += new System.EventHandler(this.DiskTypeSelectedIndexChanged);
             // 
             // labelDiskType
             // 
@@ -694,7 +691,7 @@ namespace DisksDB.UserInterface
 
         private delegate void AddTextHandler(string text);
 
-        private void comboBoxDiskType_SelectedIndexChanged(object sender, EventArgs e)
+        private void DiskTypeSelectedIndexChanged(object sender, EventArgs e)
         {
             this.diskType = (DiskType)this.comboBoxDiskType.SelectedItem;
         }

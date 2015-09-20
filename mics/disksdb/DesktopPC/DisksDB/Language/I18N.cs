@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -26,7 +26,7 @@ using DisksDB.Utils;
 
 namespace DisksDB.Language
 {
-	public class I18N : System.ComponentModel.Component
+	class I18N : System.ComponentModel.Component
 	{
 		private I18N()
 		{

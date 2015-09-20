@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,17 +19,14 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
 using System.Windows.Forms;
-using System.IO;
-using System.Drawing;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for Utils.
 	/// </summary>
-	public class Utils
+	class Utils
 	{
 		public static string CleanUpName(string name)
 		{

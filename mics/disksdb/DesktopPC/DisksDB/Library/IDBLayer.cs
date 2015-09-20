@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,8 +19,10 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.Library;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 
 namespace DisksDB.DataBase
@@ -29,8 +31,7 @@ namespace DisksDB.DataBase
 	/// Interface of database layer.
 	/// Implement this interface to use different database management systems.
 	/// </summary>
-	[System.Runtime.InteropServices.ComVisible(false)]
-	public interface IDBLayer
+	interface IDBLayer
 	{
         /// <summary>
         /// Starts data base engine. Time to perform some initialization steps if required.
@@ -65,7 +66,7 @@ namespace DisksDB.DataBase
 		/// <param name="newName">New category name</param>
 		/// <param name="newDescription">New category description</param>
 		/// <param name="newParent">New parent category id</param>
-		void UpdateCategory(Category category, string newName, string newDescription, Category newParent);
+		void UpdateCategory(Category category, String newName, String newDescription, Category newParent);
 
 		/// <summary>
 		/// Deletes category.
@@ -79,14 +80,14 @@ namespace DisksDB.DataBase
 		/// </summary>
 		/// <param name="parentCat">parent category. Function should only use category id</param>
 		/// <returns>Objects of class Category packed in ArrayList</returns>
-		ArrayList GetChildCategories(Category parentCat);
+		List<Category> GetChildCategories(Category parentCat);
 
 		/// <summary>
 		/// Gets child CD Boxes.
 		/// </summary>
 		/// <param name="parentCat">Parent category. Function should only use category id.</param>
 		/// <returns>Objects of class CBBox packed in ArrayList</returns>
-		ArrayList GetChildCDBoxes(Category parentCat);
+		List<Box> GetChildCDBoxes(Category parentCat);
 
 		/// <summary>
 		/// Creates new category in database. Returns new category object.
@@ -95,7 +96,7 @@ namespace DisksDB.DataBase
 		/// <param name="description">Category description</param>
 		/// <param name="cat">parent category. Function should only use category id</param>
 		/// <returns>Newly created category.</returns>
-		Category AddCategory(string name, string description, Category cat);
+		Category AddCategory(String name, String description, Category cat);
 
 		/// <summary>
 		/// Adds CD Box to database
@@ -108,7 +109,7 @@ namespace DisksDB.DataBase
 		/// <param name="inlayImage">inlay cover image</param>
 		/// <param name="cat">CD Box category it resides</param>
 		/// <returns>created cd box</returns>
-		Box AddCDBox(string name, string description, BoxType type, Image frontImage, Image backImage, Image inlayImage, Category cat);
+		Box AddCDBox(String name, String description, BoxType type, Image frontImage, Image backImage, Image inlayImage, Category cat);
 
 		/// <summary>
 		/// Adds CD disk
@@ -120,7 +121,7 @@ namespace DisksDB.DataBase
 		/// <param name="driveLetter">drive letter to scan for files</param>
 		/// <param name="prog">files scanning status notifier</param>
 		/// <returns>created disk</returns>
-		Disk AddDisk(string name, DiskType type, Image image, Box box, string driveLetter, IAddDiskProgress prog, bool addFiles);
+		Disk AddDisk(String name, DiskType type, Image image, Box box, String driveLetter, IAddDiskProgress prog, bool addFiles);
 
 		/// <summary>
 		/// updates existing disk
@@ -130,7 +131,7 @@ namespace DisksDB.DataBase
 		/// <param name="type">disks new type</param>
 		/// <param name="image">disks new image</param>
 		/// <param name="box">disks new box</param>
-		void UpdateDisk(Disk disk, string name, DiskType type, Image image, Box box);
+		void UpdateDisk(Disk disk, String name, DiskType type, Image image, Box box);
 
 		/// <summary>
 		/// Deletes disk
@@ -155,19 +156,19 @@ namespace DisksDB.DataBase
 		/// <param name="newInlay">cd box new inlay cover image</param>
 		/// <param name="newType">cd box new type</param>
 		/// <param name="newParent">cd box new parent category</param>
-		void UpdateCDBox(Box box, string newName, string newDescription, Image newBack, Image newFront, Image newInlay, BoxType newType, Category newParent);
+		void UpdateCDBox(Box box, String newName, String newDescription, Image newBack, Image newFront, Image newInlay, BoxType newType, Category newParent);
 
 		/// <summary>
 		/// Returs list of CDBox types
 		/// </summary>
 		/// <returns>array with CDBoxType objects</returns>
-		ArrayList GetCDBoxTypes();
+		List<BoxType> GetCDBoxTypes();
 
 		/// <summary>
 		/// Returns list of Disk types
 		/// </summary>
 		/// <returns>array with DiskType objects</returns>
-		ArrayList GetDiskTypes();
+		List<DiskType> GetDiskTypes();
 
 		/// <summary>
 		/// Loads Image from database, or file
@@ -209,7 +210,7 @@ namespace DisksDB.DataBase
 		/// <param name="name">new name</param>
 		/// <param name="fileName">new file name</param>
 		/// <param name="data">new image data</param>
-		void UpdateFrontImage(Image img, string name, string fileName, byte[] data);
+		void UpdateFrontImage(Image img, String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Updates back image
@@ -218,7 +219,7 @@ namespace DisksDB.DataBase
 		/// <param name="name">new name</param>
 		/// <param name="fileName">new file name</param>
 		/// <param name="data">new image data</param>
-		void UpdateBackImage(Image ing, string name, string fileName, byte[] data);
+		void UpdateBackImage(Image img, String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Updates inlay image
@@ -227,7 +228,7 @@ namespace DisksDB.DataBase
 		/// <param name="name">new name</param>
 		/// <param name="fileName">new file name</param>
 		/// <param name="data">new image data</param>
-		void UpdateInlayImage(Image img, string name, string fileName, byte[] data);
+		void UpdateInlayImage(Image img, String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Updates disk image
@@ -236,56 +237,56 @@ namespace DisksDB.DataBase
 		/// <param name="name">new name</param>
 		/// <param name="fileName">new file name</param>
 		/// <param name="data">new image data</param>
-        void UpdateDiskImage(Image img, string name, string fileName, byte[] data);
+        void UpdateDiskImage(Image img, String name, String fileName, byte[] data);
 
-        void UpdateDvdImage(Image img, string name, string fileName, byte[] data);
+        void UpdateDvdImage(Image img, String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Returns list of front Images.
 		/// </summary>
         /// <returns>class Image objects packed in ArrayList</returns>
-		ArrayList GetFrontImages();
+		List<Image> GetFrontImages();
 
 		/// <summary>
 		/// Returns list of back Images.
 		/// </summary>
         /// <returns>class Image objects packed in ArrayList</returns>
-		ArrayList GetBackImages();
+		List<Image> GetBackImages();
 
 		/// <summary>
 		/// Returns list of inlay Images.
 		/// </summary>
 		/// <returns>class Image objects packed in ArrayList</returns>
-		ArrayList GetInlayImages();
+		List<Image> GetInlayImages();
 
 		/// <summary>
 		/// Returns list of disk Images.
 		/// </summary>
         /// <returns>class Image objects packed in ArrayList</returns>
-		ArrayList GetDiskImages();
+		List<Image> GetDiskImages();
 
-        ArrayList GetDvdImages();
+        List<Image> GetDvdImages();
 
 		/// <summary>
 		/// Get`s list of disk, who resides in this cd box
 		/// </summary>
 		/// <param name="box">box</param>
 		/// <returns>ArrayList filled with Disk class objects</returns>
-		ArrayList GetDisks(Box box);
+		List<Disk> GetDisks(Box box);
 
 		/// <summary>
 		/// Get`s list of files, who resides on specified disk
 		/// </summary>
 		/// <param name="disk">disk</param>
 		/// <returns>ArrayList filled with File class objects</returns>
-		ArrayList GetFiles(Disk disk);
+		List<File> GetFiles(Disk disk);
 
 		/// <summary>
 		/// Get`s list of files, who resides in specified folder
 		/// </summary>
 		/// <param name="file">folder</param>
 		/// <returns>ArrayList filled with File class objects</returns>
-		ArrayList GetFiles(File file);
+		List<File> GetFiles(File file);
 
 		/// <summary>
 		/// Adds front image to database
@@ -294,7 +295,7 @@ namespace DisksDB.DataBase
 		/// <param name="fileName">file name of image to load from</param>
 		/// <param name="data"> or (and) data of loaded file in memory</param>
 		/// <returns>Added Image</returns>
-		Image AddFrontImage(string name, string fileName, byte[] data);
+		Image AddFrontImage(String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Adds back image to database
@@ -303,7 +304,7 @@ namespace DisksDB.DataBase
 		/// <param name="fileName">file name of image to load from</param>
 		/// <param name="data"> or (and) data of loaded file in memory</param>
 		/// <returns>Added Image</returns>
-		Image AddBackImage(string name, string fileName, byte[] data);
+		Image AddBackImage(String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Adds inlay image to database
@@ -312,7 +313,7 @@ namespace DisksDB.DataBase
 		/// <param name="fileName">file name of image to load from</param>
 		/// <param name="data"> or (and) data of loaded file in memory</param>
 		/// <returns>Added Image</returns>
-		Image AddInlayImage(string name, string fileName, byte[] data);
+		Image AddInlayImage(String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Adds disk image to database
@@ -321,9 +322,9 @@ namespace DisksDB.DataBase
 		/// <param name="fileName">file name of image to load from</param>
 		/// <param name="data"> or (and) data of loaded file in memory</param>
 		/// <returns>Added Image</returns>
-        Image AddDiskImage(string name, string fileName, byte[] data);
+        Image AddDiskImage(String name, String fileName, byte[] data);
 
-        Image AddDvdImage(string name, string fileName, byte[] data);
+        Image AddDvdImage(String name, String fileName, byte[] data);
 
 		/// <summary>
 		/// Searches database for file using specified pattern
@@ -335,7 +336,7 @@ namespace DisksDB.DataBase
 		/// <param name="minSize">minimum size of file</param>
 		/// <param name="maxSize">maximum size of file</param>
 		/// <param name="size">exact size of file</param>
-		DataSetSearch FindFile(string fileName, bool useMinSize, bool userMaxSize, bool useEquals, long minSize, long maxSize, long size);
+		DataSetSearch FindFile(String fileName, bool useMinSize, bool userMaxSize, bool useEquals, long minSize, long maxSize, long size);
 
 		/// <summary>
 		/// Reference of database system object, usually used for images managing.
@@ -347,7 +348,7 @@ namespace DisksDB.DataBase
 		/// <summary>
 		/// Data Access Layer Name
 		/// </summary>
-		string Name
+		String Name
 		{
 			get;
 		}
@@ -370,7 +371,7 @@ namespace DisksDB.DataBase
 		/// <param name="attributes">files attributes (1 - folder, 0 - file)</param>
 		/// <param name="transaction">transaction object created by BeginFilesAdd method.</param>
 		/// <returns>created file id or -1 on error</returns>
-		long AddFile(string name, DateTime date, long size, long diskId, long parentId, long attributes, object transaction);
+		long AddFile(String name, DateTime date, long size, long diskId, long parentId, long attributes, Object transaction);
 		
 		/// <summary>
 		/// Gets files count on specified disk. (used only in Database transfer process).
@@ -384,7 +385,7 @@ namespace DisksDB.DataBase
 		/// Shoud create transaction object which later will be passed to AddFile method.
 		/// </summary>
 		/// <returns>transaction object. (for example SqlTransaction). Using this object all disk files will be added in single transaction</returns>
-		object BeginFilesAdd();
+		Object BeginFilesAdd();
 
 		/// <summary>
 		/// Finishes files adding. (used only in Database transfer process).
@@ -392,7 +393,7 @@ namespace DisksDB.DataBase
 		/// </summary>
 		/// <param name="transaction">transaction object created in BeginFilesAdd</param>
 		/// <param name="commit">true == commit transaction, false == rollback</param>
-		void EndFilesAdd(object transaction, bool commit);
+		void EndFilesAdd(Object transaction, bool commit);
 		
 		/// <summary>
 		/// Gets Disks count in database. (used only in Database transfer process).
@@ -400,7 +401,6 @@ namespace DisksDB.DataBase
 		/// </summary>
 		/// <returns>disks count in database</returns>
 		long GetDisksCount();
-
 
 		DataSetSync GetCategoriesChanges(DateTime timeStamp, long[] pdaCategories);
 		DataSetSync GetBoxesChanges(DateTime timeStamp, long[] pdaBoxes);
@@ -420,7 +420,7 @@ namespace DisksDB.DataBase
 		/// '|' should not be contained in ID string.
 		/// </summary>
 		/// <returns>database Id (could be any string, GUID is recommend)</returns>
-		string GetDataBaseId();
+		String GetDataBaseId();
 
         /// <summary>
         /// Saves configuration to configuration object.

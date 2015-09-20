@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -24,45 +24,36 @@ using System.IO;
 
 namespace DisksDB.DataBase
 {
-	/// <summary>
-	/// Summary description for DBLayerItem.
-	/// </summary>
-	public class DBLayerItem
+	class DBLayerItem
 	{
-		public DBLayerItem(string path, string className, IDBLayer layer)
+		public DBLayerItem(String path, String className, IDBLayer layer)
 		{
-			this.path = Path.GetFileName(path);
-			this.className = className;
-			this.layer = layer;
+			this.FullPath = Path.GetFileName(path);
+			this.ClassName = className;
+			this.Layer = layer;
 		}
 
-		public override string ToString()
+		public override String ToString()
 		{
-			return this.layer.Name;
+			return this.Layer.Name;
 		}
 
 		public string ClassName
 		{
-			get
-			{
-				return this.className;
-			}
+			get;
+			private set;
 		}
 
 		public string FullPath
 		{
-			get
-			{
-				return this.path;
-			}
+			get;
+			private set;
 		}
 
 		public IDBLayer Layer
 		{
-			get
-			{
-				return this.layer;
-			}
+			get;
+			private set;
 		}
 
 		/// <summary>
@@ -71,7 +62,7 @@ namespace DisksDB.DataBase
 		/// </summary>
 		public void InitDataBase(bool silent)
 		{
-			if (false == this.layer.IsNewDataBase())
+			if (false == this.Layer.IsNewDataBase())
 			{
 				if (true == silent)
 				{
@@ -84,11 +75,7 @@ namespace DisksDB.DataBase
 				}
 			}
 
-			this.layer.ResetDataBase();
+			this.Layer.ResetDataBase();
 		}
-
-		private string path;
-		private string className;
-		private IDBLayer layer;
 	}
 }

@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,20 +19,18 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
-using System.Collections;
-using System.Data;
-using System.Diagnostics;
-using System.Reflection;
-using DisksDB.Utils;
+using DisksDB.Access;
+using DisksDB.Library;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 
 namespace DisksDB.DataBase
 {
 	/// <summary>
 	/// DisksDB database access
 	/// </summary>
-	public class DataBase
+	class DataBase
 	{
 		private DataBase()
 		{
@@ -49,32 +47,7 @@ namespace DisksDB.DataBase
 		/// <param name="className">class</param>
 		public void SetDataBase(string assemblyName, string className)
 		{
-			if ( (null == className) || (assemblyName == null) || ("".Equals(assemblyName)) || ("".Equals(className)) )
-			{
-				this.dbLayer = new EmptyLayer();
-			} 
-			else
-			{
-				try
-				{
-					Assembly a = Assembly.LoadFile(DisksDB.Utils.Utils.DataBaseLayersFolder + "/" + assemblyName);
-					object o = a.CreateInstance(className);
-
-					if (o is IDBLayer)
-					{
-						this.dbLayer = (IDBLayer) o;
-					}
-					else
-					{
-						this.dbLayer = new EmptyLayer();
-					}
-				}
-				catch (Exception ex)
-				{
-					Logger.LogException(ex);
-					this.dbLayer = new EmptyLayer();
-				}
-			}
+			this.dbLayer = new MsAccessDBLayer();
 
 			this.dbLayer.DataBase = this;
 			this.frontImages = new ImageFactoryFront(this.dbLayer);
@@ -86,17 +59,6 @@ namespace DisksDB.DataBase
             this.dbLayer.LoadConfig(DisksDB.Config.Config.Instance);
 
             this.dbLayer.Start();
-
-            //try
-            //{
-            //    string xml = DisksDB.Config.Config.Instance.GetValue("Layer " + this.dbLayer.GetType().FullName);
-
-            //    this.dbLayer.ConfigObject = Serializer.StringToObject(xml, this.dbLayer.ConfigObject.GetType());
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.LogException(ex);
-            //}
 
 			OnLayerChanged();
 		}
@@ -117,7 +79,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		public ArrayList BoxTypes
+		public List<BoxType> BoxTypes
 		{
 			get
 			{
@@ -125,7 +87,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		public ArrayList DiskTypes
+		public List<DiskType> DiskTypes
 		{
 			get
 			{
@@ -177,11 +139,6 @@ namespace DisksDB.DataBase
 		{
 			return dbLayer.FindFile(fileName, useMinSize, userMaxSize, useEquals, minSize, maxSize, size);
 		}
-
-        //public void SetConfig(object cfg)
-        //{
-        //    this.dbLayer.ConfigObject = cfg;
-        //}
 
 		public IDBLayer LowAccessLayer
 		{

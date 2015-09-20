@@ -27,7 +27,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Summary description for FormDisksTree.
 	/// </summary>
-	public class FormDisksTree : DockContent
+	class FormDisksTree : DockContent
 	{
 		/// <summary>
 		/// Required designer variable.

@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -26,7 +26,7 @@ using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
-	public class TreeNodeBox : TreeNodeBase
+	class TreeNodeBox : TreeNodeBase
 	{
 		private bool isNodesLoaded = false;
 		private DisksDB.DataBase.DataBase db = null;
@@ -63,7 +63,7 @@ namespace DisksDB.UserInterface
 
 			this.Nodes.Clear();
 
-			ArrayList disks = this.box.Disks;
+			var disks = this.box.Disks;
 
 			if (null != disks)
 			{

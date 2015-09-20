@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,12 +19,13 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
-using System.Windows.Forms;
+using DisksDB.UserInterface;
 using DisksDB.Utils;
+using System;
 using System.Threading;
+using System.Windows.Forms;
 
-namespace DisksDB.UserInterface
+namespace DisksDB
 {
 	/// <summary>
 	/// Entry point class of the application.

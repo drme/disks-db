@@ -26,7 +26,7 @@ using System;
 
 namespace DisksDB.UserInterface
 {
-	public class FormNewCategory : FormWizardBase
+	class FormNewCategory : FormWizardBase
 	{
 		private TabPage tabPage1;
 		private TextBox textBoxName;

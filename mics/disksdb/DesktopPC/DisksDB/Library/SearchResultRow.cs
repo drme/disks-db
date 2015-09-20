@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -23,10 +23,7 @@ using System;
 
 namespace DisksDB.DataBase
 {
-	/// <summary>
-	/// Summary description for SearchResultRow.
-	/// </summary>
-	public class SearchResultRow : System.Windows.Forms.ListViewItem
+	class SearchResultRow : System.Windows.Forms.ListViewItem
 	{
 		public SearchResultRow(string fileName, int fileSize, int fileType, DateTime fileDate, Disk disk, Box box, Category category, string diskName, string boxName, string categoryName) : base(fileName)
 		{

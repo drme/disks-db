@@ -1,6 +1,6 @@
 ﻿/*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,21 +19,17 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
-using System.IO;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using DisksDB.DataBase;
 using DisksDB.Utils;
+using System;
+using System.Drawing;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for FormFirstRun.
 	/// </summary>
-	public class FormFirstRun : FormWizardBase
+	class FormFirstRun : FormWizardBase
 	{
 		private System.Windows.Forms.TabPage tabPage4;
 		private DisksDB.UserInterface.ControlDonePage controlDonePage1;

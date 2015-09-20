@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace DisksDB.DataBase
 {
 	[Serializable()]
-	public class Category : BaseObject
+	class Category : BaseObject
 	{
 		public Category() : base(null, -1)
 		{
@@ -86,7 +86,7 @@ namespace DisksDB.DataBase
 		}
 
 		[XmlIgnore]
-		public ArrayList ChildCategories
+		public List<Category> ChildCategories
 		{
 			get
 			{
@@ -102,7 +102,7 @@ namespace DisksDB.DataBase
 		}
 
 		[XmlIgnore]
-		public ArrayList ChildCDBoxes
+		public List<Box> ChildCDBoxes
 		{
 			get
 			{
@@ -128,7 +128,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		public Category AddCategory(string name, string description)
+		public Category AddCategory(String name, String description)
 		{
 			CheckDeleted();
 
@@ -210,9 +210,9 @@ namespace DisksDB.DataBase
 		private string name = null;
 		private string description = null;
 		[XmlIgnore]
-		private ArrayList childCategories = null;
+		private List<Category> childCategories = null;
 		[XmlIgnore]
-		private ArrayList childCDBoxes = null;
+		private List<Box> childCDBoxes = null;
 		[XmlIgnore]
 		private Category parent = null;
 	}

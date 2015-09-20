@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 namespace DisksDB.DataBase
 {
 	[Serializable()]
-	public class BaseObject
+	class BaseObject
 	{
 		public BaseObject(IDBLayer idb, long id)
 		{
@@ -50,7 +50,7 @@ namespace DisksDB.DataBase
 		}
 
 		[XmlIgnore]
-		public IDBLayer DataBase
+		internal IDBLayer DataBase
 		{
 			get
 			{
@@ -112,16 +112,8 @@ namespace DisksDB.DataBase
 			OnChildRemoved(child);
 		}
 
-		public string GetXml()
+		public String GetXml()
 		{
-			//System.Runtime.Serialization.Formatters.Soap.SoapFormatter sf = new System.Runtime.Serialization.Formatters.Soap.SoapFormatter();
-
-			//System.IO.MemoryStream ms = new System.IO.MemoryStream();
-
-			//sf.Serialize(ms, this);
-
-			//return ms.ToString();
-
 			return "<category name=\"" + "name" +  "\" id=\"" + this.id + "\" />";
 		}
 		

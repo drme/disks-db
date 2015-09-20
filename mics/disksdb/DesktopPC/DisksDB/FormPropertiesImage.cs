@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -28,7 +28,7 @@ using Image = DisksDB.DataBase.Image;
 
 namespace DisksDB.UserInterface
 {
-	public class FormPropertiesImage : FormPropertiesBase
+	class FormPropertiesImage : FormPropertiesBase
 	{
 		private TabPage tabPage2;
 		private Button button1;

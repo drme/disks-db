@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,16 +19,14 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace DisksDB.Access
 {
-	/// <summary>
-	/// Summary description for DbFileNameEditor.
-	/// </summary>
-	public class DbFileNameEditor : System.Windows.Forms.Design.FileNameEditor
+	class DbFileNameEditor : FileNameEditor
 	{
-		protected override void InitializeDialog(System.Windows.Forms.OpenFileDialog openFileDialog)
+		protected override void InitializeDialog(OpenFileDialog openFileDialog)
 		{
 			base.InitializeDialog(openFileDialog);
 

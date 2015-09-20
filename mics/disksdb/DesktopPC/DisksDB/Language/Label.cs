@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -23,11 +23,7 @@ using System;
 
 namespace DisksDB.Language
 {
-	/// <summary>
-	/// Summary description for Label.
-	/// </summary>
-	public class Label : System.Windows.Forms.Label
+	class Label : System.Windows.Forms.Label
 	{
-
 	}
 }

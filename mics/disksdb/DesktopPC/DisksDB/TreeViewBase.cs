@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 using System;
 using System.Windows.Forms;
-using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for BaseTreeView.
 	/// </summary>
-	public abstract class TreeViewBase : TreeView, INativeRename
+	abstract class TreeViewBase : TreeView, INativeRename
 	{
 		public event EventHandlerItemSelected ItemSelected;
 		protected MenuEdit mnuEdit = null;

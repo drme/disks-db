@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -30,7 +30,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Generic item.
 	/// </summary>
-	public abstract class TreeNodeBase : TreeNode, ITreeNode
+	abstract class TreeNodeBase : TreeNode, ITreeNode
 	{
 		protected BaseObject baseObject;
 		protected bool canBeDeleted;

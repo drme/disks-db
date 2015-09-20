@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,15 +19,15 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.DataBase;
 using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
-	public class FormPropertiesBox : FormPropertiesBase
+	class FormPropertiesBox : FormPropertiesBase
 	{
 		private Label label2;
 		private ComboBox comboBoxType;
@@ -38,14 +38,14 @@ namespace DisksDB.UserInterface
 		private TabPage tabPage4;
 		private DisksDB.DataBase.DataBase db = null;
 		private ComboBox comboBox2;
-		private ComboBox comboBox3;
+		private ComboBox comboBoxBoxType;
 		private Label label4;
 		private ControlImagePanel imagePanelFront;
 		private ControlImagePanel imagePanelBack;
 		private ControlImagePanel imagePanelInlay;
 		private DataBase.Box box = null;
 
-		public FormPropertiesBox(DisksDB.DataBase.DataBase db, DataBase.Box box)
+		public FormPropertiesBox(DisksDB.DataBase.DataBase db, Box box)
 		{
 			this.db = db;
 			this.box = box;
@@ -57,14 +57,14 @@ namespace DisksDB.UserInterface
 
 			foreach (Object o in db.BoxTypes)
 			{
-				this.comboBox3.Items.Add(o);
+				this.comboBoxBoxType.Items.Add(o);
 			}
 
-			for (int i = 0; i < this.comboBox3.Items.Count; i++)
+			for (int i = 0; i < this.comboBoxBoxType.Items.Count; i++)
 			{
-				if (((BoxType) this.comboBox3.Items[i]).Id == box.Type.Id)
+				if (((BoxType)this.comboBoxBoxType.Items[i]).Id == box.Type.Id)
 				{
-					this.comboBox3.SelectedIndex = i;
+					this.comboBoxBoxType.SelectedIndex = i;
 				}
 			}
 
@@ -75,7 +75,7 @@ namespace DisksDB.UserInterface
 			this.imagePanelFront.ShowImage(box.FrontCover);
 			this.imagePanelInlay.ShowImage(box.InlayCover);
 
-			ArrayList lst = this.db.BoxTypes;
+			var lst = this.db.BoxTypes;
 			this.comboBox1.DataSource = lst;
 			this.Text = box.Name + " - Properties";
 		}
@@ -113,7 +113,7 @@ namespace DisksDB.UserInterface
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.imagePanelInlay = new DisksDB.UserInterface.ControlImagePanel();
 			this.comboBox2 = new System.Windows.Forms.ComboBox();
-			this.comboBox3 = new System.Windows.Forms.ComboBox();
+			this.comboBoxBoxType = new System.Windows.Forms.ComboBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -136,9 +136,9 @@ namespace DisksDB.UserInterface
 			// tabPage1
 			// 
 			this.tabPage1.Controls.Add(this.label4);
-			this.tabPage1.Controls.Add(this.comboBox3);
+			this.tabPage1.Controls.Add(this.comboBoxBoxType);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Controls.SetChildIndex(this.comboBox3, 0);
+			this.tabPage1.Controls.SetChildIndex(this.comboBoxBoxType, 0);
 			this.tabPage1.Controls.SetChildIndex(this.label4, 0);
 			this.tabPage1.Controls.SetChildIndex(this.label1, 0);
 			this.tabPage1.Controls.SetChildIndex(this.textBoxTitle, 0);
@@ -157,12 +157,12 @@ namespace DisksDB.UserInterface
 			// 
 			this.textBoxDescription.Name = "textBoxDescription";
 			this.textBoxDescription.Size = new System.Drawing.Size(280, 216);
-			this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
+			this.textBoxDescription.TextChanged += new System.EventHandler(this.DescriptionTextChanged);
 			// 
 			// textBoxTitle
 			// 
 			this.textBoxTitle.Name = "textBoxTitle";
-			this.textBoxTitle.TextChanged += new System.EventHandler(this.textBoxTitle_TextChanged);
+			this.textBoxTitle.TextChanged += new System.EventHandler(this.TitleTextChanged);
 			// 
 			// label2
 			// 
@@ -205,7 +205,7 @@ namespace DisksDB.UserInterface
 			this.imagePanelFront.ReadOnly = false;
 			this.imagePanelFront.Size = new System.Drawing.Size(296, 318);
 			this.imagePanelFront.TabIndex = 0;
-			this.imagePanelFront.Changed += new DisksDB.UserInterface.ControlImagePanel.ChangeHandler(this.imagePanelFront_Changed);
+			this.imagePanelFront.Changed += new DisksDB.UserInterface.ControlImagePanel.ChangeHandler(this.FrontImageChanged);
 			// 
 			// tabPage3
 			// 
@@ -224,7 +224,7 @@ namespace DisksDB.UserInterface
 			this.imagePanelBack.ReadOnly = false;
 			this.imagePanelBack.Size = new System.Drawing.Size(296, 318);
 			this.imagePanelBack.TabIndex = 0;
-			this.imagePanelBack.Changed += new DisksDB.UserInterface.ControlImagePanel.ChangeHandler(this.imagePanelBack_Changed);
+			this.imagePanelBack.Changed += new DisksDB.UserInterface.ControlImagePanel.ChangeHandler(this.BackImageChanged);
 			// 
 			// tabPage4
 			// 
@@ -243,7 +243,7 @@ namespace DisksDB.UserInterface
 			this.imagePanelInlay.ReadOnly = false;
 			this.imagePanelInlay.Size = new System.Drawing.Size(296, 318);
 			this.imagePanelInlay.TabIndex = 0;
-			this.imagePanelInlay.Changed += new DisksDB.UserInterface.ControlImagePanel.ChangeHandler(this.imagePanelInlay_Changed);
+			this.imagePanelInlay.Changed += new DisksDB.UserInterface.ControlImagePanel.ChangeHandler(this.InlayImageChanged);
 			// 
 			// comboBox2
 			// 
@@ -255,12 +255,12 @@ namespace DisksDB.UserInterface
 			// 
 			// comboBox3
 			// 
-			this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox3.Location = new System.Drawing.Point(72, 288);
-			this.comboBox3.Name = "comboBox3";
-			this.comboBox3.Size = new System.Drawing.Size(216, 21);
-			this.comboBox3.TabIndex = 6;
-			this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+			this.comboBoxBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxBoxType.Location = new System.Drawing.Point(72, 288);
+			this.comboBoxBoxType.Name = "comboBox3";
+			this.comboBoxBoxType.Size = new System.Drawing.Size(216, 21);
+			this.comboBoxBoxType.TabIndex = 6;
+			this.comboBoxBoxType.SelectedIndexChanged += new System.EventHandler(this.BoxTypeSelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -292,14 +292,14 @@ namespace DisksDB.UserInterface
 			{
 				box.Name = this.textBoxTitle.Text;
 				box.Description = this.textBoxDescription.Text;
-				box.Type = (BoxType) this.comboBox3.SelectedItem;
+				box.Type = (BoxType)this.comboBoxBoxType.SelectedItem;
 				box.FrontCover = this.imagePanelFront.SelectedImage;
 				box.BackCover = this.imagePanelBack.SelectedImage;
 				box.InlayCover = this.imagePanelInlay.SelectedImage;
 			}
 		}
 
-		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+		private void BoxTypeSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (this.loaded)
 			{
@@ -307,7 +307,7 @@ namespace DisksDB.UserInterface
 			}
 		}
 
-		private void imagePanelFront_Changed(object sender, EventArgs e)
+		private void FrontImageChanged(object sender, EventArgs e)
 		{
 			if (this.loaded)
 			{
@@ -315,7 +315,7 @@ namespace DisksDB.UserInterface
 			}
 		}
 
-		private void imagePanelBack_Changed(object sender, EventArgs e)
+		private void BackImageChanged(object sender, EventArgs e)
 		{
 			if (this.loaded)
 			{
@@ -323,7 +323,7 @@ namespace DisksDB.UserInterface
 			}
 		}
 
-		private void imagePanelInlay_Changed(object sender, EventArgs e)
+		private void InlayImageChanged(object sender, EventArgs e)
 		{
 			if (this.loaded)
 			{
@@ -331,12 +331,12 @@ namespace DisksDB.UserInterface
 			}
 		}
 
-		private void textBoxTitle_TextChanged(object sender, System.EventArgs e)
+		private void TitleTextChanged(object sender, System.EventArgs e)
 		{
 			SetUpdated();
 		}
 
-		private void textBoxDescription_TextChanged(object sender, System.EventArgs e)
+		private void DescriptionTextChanged(object sender, System.EventArgs e)
 		{
 			SetUpdated();
 		}

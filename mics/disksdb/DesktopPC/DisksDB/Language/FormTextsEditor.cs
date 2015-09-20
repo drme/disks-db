@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -28,10 +28,7 @@ using System.Windows.Forms;
 
 namespace DisksDB.Language
 {
-	/// <summary>
-	/// Summary description for FormTextsEditor.
-	/// </summary>
-	public class FormTextsEditor : WeifenLuo.WinFormsUI.DockContent
+	class FormTextsEditor : WeifenLuo.WinFormsUI.DockContent
 	{
 		private System.Windows.Forms.Panel panelBack;
 		private System.Windows.Forms.DataGrid dataGrid1;
