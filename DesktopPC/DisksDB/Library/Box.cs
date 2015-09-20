@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,16 +19,15 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DisksDB.DataBase
 {
-	/// <summary>
-	/// Summary description for CDBox.
-	/// </summary>
-	public class Box : BaseObject
+	class Box : BaseObject
 	{
-		public Box(string name, string comment, long id, Image back, Image inlay, BoxType type, Image front, IDBLayer idb, Category parent) : base(idb, id)
+		public Box(String name, String comment, long id, Image back, Image inlay, BoxType type, Image front, IDBLayer idb, Category parent) : base(idb, id)
 		{
 			this.parent = parent;
 			this.name = name;
@@ -77,7 +76,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		public string Name
+		public String Name
 		{
 			get
 			{
@@ -96,7 +95,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -181,7 +180,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		public ArrayList Disks
+		public List<Disk> Disks
 		{
 			get
 			{
@@ -203,7 +202,7 @@ namespace DisksDB.DataBase
 			this.idb.UpdateCDBox(this, this.name, this.desc, this.back, this.front, this.inlay, this.type, this.parent);
 		}
 
-		public Disk AddDisk(string name, DiskType type, Image image, string driveLetter, IAddDiskProgress prog, bool addFiles)
+		public Disk AddDisk(String name, DiskType type, Image image, string driveLetter, IAddDiskProgress prog, bool addFiles)
 		{
 			CheckDeleted();
 
@@ -217,9 +216,9 @@ namespace DisksDB.DataBase
 			return d;
 		}
 
-		private ArrayList disks = null;
-		private string name = null;
-		private string desc = null;
+		private List<Disk> disks = null;
+		private String name = null;
+		private String desc = null;
 		private Category parent = null;
 		private Image front = null;
 		private Image back = null;

@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -25,7 +25,7 @@ namespace DisksDB.UserInterface
 	/// Tree Node interface in DiskView tree.
 	/// Defines basic functionality for components in tree.
 	/// </summary>
-	public interface ITreeNode : IListItem
+	interface ITreeNode : IListItem
 	{
 		/// <summary>
 		/// Causes tree node to get its child nodes

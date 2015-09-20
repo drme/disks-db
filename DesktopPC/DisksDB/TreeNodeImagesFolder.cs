@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -27,10 +27,7 @@ using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for TreeNodeImagesFolder.
-	/// </summary>
-	public class TreeNodeImagesFolder : TreeNodeBase
+	class TreeNodeImagesFolder : TreeNodeBase
 	{
 		private DisksDB.DataBase.ImageFactory imgFact;
 		private bool isChildsLoaded = false;
@@ -61,7 +58,7 @@ namespace DisksDB.UserInterface
 
 			if (null != this.imgFact)
 			{
-				ArrayList lst = this.imgFact.GetImages();
+				var lst = this.imgFact.GetImages();
 
 				if (null != lst)
 				{

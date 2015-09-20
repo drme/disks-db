@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DisksDB.DataBase
 {
 	/// <summary>
 	/// CD disk
 	/// </summary>
-	public class Disk : BaseObject
+	class Disk : BaseObject
 	{
 		public Disk(IDBLayer idb, long id, string name, Image image, DiskType type, Box box) : base(idb, id)
 		{
@@ -149,7 +150,7 @@ namespace DisksDB.DataBase
 		/// Gets files in root folder of this CD.
 		/// Objects of type File are packed in ArrayList
 		/// </summary>
-		public ArrayList Files
+		public List<File> Files
 		{
 			get
 			{
@@ -164,7 +165,7 @@ namespace DisksDB.DataBase
 			}
 		}
 
-		private ArrayList files = null;
+		private List<File> files = null;
 		private string name = null;
 		private Image image = null;
 		private DiskType type = null;

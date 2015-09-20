@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,21 +19,17 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using DisksDB.Language;
+using DisksDB.Library;
+using DisksDB.Utils;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Forms;
-using DisksDB.Language;
-using DisksDB.DataBase;
-using DisksDB.Utils;
 using Label = System.Windows.Forms.Label;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for SearchForm.
-	/// </summary>
-	public class FormSearch : FormI18NDC
+	class FormSearch : FormI18NDC
 	{
 		private ComboBox comboBoxSearch;
 		private CheckBox checkBoxLessThan;

@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,20 +19,18 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
+using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 
 namespace DisksDB.Access
 {
-	/// <summary>
-	/// Summary description for Config.
-	/// </summary>
-	public class AccessConfig
+	class AccessConfig
 	{
         [Category("Data Base Settings")]
         [Description("Data Base File Name")]
         [Editor(typeof(DbFileNameEditor), typeof(UITypeEditor))]
-        public string DataBaseFile
+        public String DataBaseFile
         {
             get
             {
@@ -51,6 +49,6 @@ namespace DisksDB.Access
             }
         }
 
-        public string databaseFile = "disksdb.mdb";
+        public String databaseFile = "disksdb.mdb";
 	}
 }

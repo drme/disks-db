@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 using System;
 using System.Collections;
 using System.Windows.Forms;
-using DisksDB.DataBase;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Represents disk in cd catalog tree
 	/// </summary>
-	public class TreeNodeDisk : TreeNodeBase
+	class TreeNodeDisk : TreeNodeBase
 	{
 		private bool isNodesLoaded = false;
 		private DataBase.Disk disk = null;
@@ -94,7 +93,7 @@ namespace DisksDB.UserInterface
 
 			this.Nodes.Clear();
 
-			ArrayList files = disk.Files;
+			var files = disk.Files;
 
 			if (null != files)
 			{

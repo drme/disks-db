@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -28,7 +28,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Summary description for FormPrintable.
 	/// </summary>
-	public class FormPrintable : Language.FormI18NDC
+	class FormPrintable : Language.FormI18NDC
 	{
 		[DefaultValue(false)]
 		public bool NeedPrinting

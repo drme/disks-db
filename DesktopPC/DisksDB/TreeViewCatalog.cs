@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -29,7 +29,7 @@ namespace DisksDB.UserInterface
 	/// Class Represents loaded disks tree from database
 	/// Displays categories, cd boxes, disks, folders, files in a tree
 	/// </summary>
-	public class TreeViewCatalog : TreeViewBase
+	class TreeViewCatalog : TreeViewBase
 	{
 		private DataBase.Category rootCategory = null;
 		private TreeNodeCategory rootCat = null;

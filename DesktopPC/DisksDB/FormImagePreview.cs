@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -29,10 +29,7 @@ using Image = System.Drawing.Image;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for FormImagePreview.
-	/// </summary>
-	public class FormImagePreview : FormPrintable
+	class FormImagePreview : FormPrintable
 	{
 		private Panel panel1;
 		private PictureBox pictureBox1;

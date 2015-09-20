@@ -25,13 +25,14 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DisksDB.Utils;
+using DisksDB.Language;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for FormAbout.
 	/// </summary>
-	public class FormAbout : Language.FormI18N
+	class FormAbout : FormI18N
 	{
 		private System.Windows.Forms.Button buttonClose;
 		private System.Windows.Forms.PictureBox pictureBox1;

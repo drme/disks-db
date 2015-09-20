@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -26,7 +26,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Represents file/folder in cd tree.
 	/// </summary>
-	public class TreeNodeFile : TreeNodeBase
+	class TreeNodeFile : TreeNodeBase
 	{
 		private bool isNodesLoaded = false;
 		private DataBase.File file = null;
@@ -82,7 +82,7 @@ namespace DisksDB.UserInterface
 				return;
 			}
 
-			ArrayList files = this.file.Files;
+			var files = this.file.Files;
 			
 			this.childFiles = new ArrayList();
 

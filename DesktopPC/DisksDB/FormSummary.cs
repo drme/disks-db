@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,19 +19,15 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using DisksDB.DataBase;
+using System;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Summary description for FormSummary.
 	/// </summary>
-	public class FormSummary : WeifenLuo.WinFormsUI.DockContent
+	class FormSummary : WeifenLuo.WinFormsUI.DockContent
 	{
 		private System.Windows.Forms.Panel panelBack;
 		private DisksDB.UserInterface.ControlMyTab tabControl1;
@@ -75,7 +71,7 @@ namespace DisksDB.UserInterface
 				this.pictureBoxImage.Image = image.Picture;
 				this.pictureBoxImage.Size = image.Picture.Size;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 			}
 

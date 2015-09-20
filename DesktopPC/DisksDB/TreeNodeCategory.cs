@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -30,7 +30,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Represents cd category in disks tree.
 	/// </summary>
-	public class TreeNodeCategory : TreeNodeBase
+	class TreeNodeCategory : TreeNodeBase
 	{
 		private bool nodesLoaded = false;
 		private DisksDB.DataBase.DataBase db = null;
@@ -138,7 +138,7 @@ namespace DisksDB.UserInterface
 				this.Nodes.Clear();
 			}
 
-			ArrayList lst = this.cat.ChildCategories;
+			var lst = this.cat.ChildCategories;
 
 			if (null != lst)
 			{
@@ -160,11 +160,11 @@ namespace DisksDB.UserInterface
 				}
 			}
 
-			lst = this.cat.ChildCDBoxes;
+			var childBoxes = this.cat.ChildCDBoxes;
 
 			if (null != lst)
 			{
-				foreach (DataBase.Box r in lst)
+				foreach (DataBase.Box r in childBoxes)
 				{
 					if (false == r.IsDeleted)
 					{

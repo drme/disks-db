@@ -1,3 +1,5 @@
+using DisksDB.Library;
+
 namespace DisksDB.UserInterface
 {
     partial class FormSearchResults
@@ -42,7 +44,7 @@ namespace DisksDB.UserInterface
             this.goToBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSetSearch1 = new DisksDB.DataBase.DataSetSearch();
+            this.dataSetSearch1 = new Library.DataSetSearch();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filesBindingSource)).BeginInit();
@@ -158,7 +160,7 @@ namespace DisksDB.UserInterface
             // filesBindingSource
             // 
             this.filesBindingSource.DataMember = "Files";
-            this.filesBindingSource.DataSource = typeof(DisksDB.DataBase.DataSetSearch);
+            this.filesBindingSource.DataSource = typeof(DataSetSearch);
             // 
             // dataSetSearch1
             // 
@@ -187,7 +189,7 @@ namespace DisksDB.UserInterface
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource filesBindingSource;
-        private DisksDB.DataBase.DataSetSearch dataSetSearch1;
+        private Library.DataSetSearch dataSetSearch1;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem goToFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToDiskToolStripMenuItem;

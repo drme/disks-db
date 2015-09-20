@@ -30,7 +30,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Summary description for AddImageForm.
 	/// </summary>
-	public class FormAddImage : FormWizardBase
+	class FormAddImage : FormWizardBase
 	{
 		private string imageFileName = string.Empty;
 		private System.Windows.Forms.TabPage tabPage1;

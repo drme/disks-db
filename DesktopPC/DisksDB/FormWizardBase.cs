@@ -28,7 +28,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Summary description for AddImageForm.
 	/// </summary>
-	public class FormWizardBase : Language.FormI18N
+	class FormWizardBase : Language.FormI18N
 	{
 		private string nextText = "Next >>";
 		private string prevText = "<< Back";

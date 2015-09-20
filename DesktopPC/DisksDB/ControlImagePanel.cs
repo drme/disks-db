@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -30,7 +30,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Image panel for showing some images (like: front covers, back covers, ...)
 	/// </summary>
-	public class ControlImagePanel : UserControl
+	class ControlImagePanel : UserControl
 	{
 		public delegate void ChangeHandler(object sender, EventArgs e);
 

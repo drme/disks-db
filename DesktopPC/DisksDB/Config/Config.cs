@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -20,29 +20,29 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 
+using DisksDB.Utils;
 using System;
 using System.Data;
-using DisksDB.Utils;
 
 namespace DisksDB.Config
 {
-	public class Config
+	class Config
 	{
 		private Config()
 		{
-			string path = Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+			String path = Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
 
-			this.cfgFileName = path + "\\" + appId + "\\config.xml";
+			this.configFileName = path + "\\" + appId + "\\config.xml";
 
-			DisksDB.Utils.Utils.CreateFolders(this.cfgFileName);
+			DisksDB.Utils.Utils.CreateFolders(this.configFileName);
 
 			try
 			{
-				dsCfg.ReadXml(this.cfgFileName);
+				dataSet.ReadXml(this.configFileName);
 			}
 			catch (Exception)
 			{
-				dsCfg = new DataSetConfig();
+				dataSet = new DataSetConfig();
 
 				this.configFileExists = false;
 			}
@@ -52,18 +52,18 @@ namespace DisksDB.Config
 		{
 			get
 			{
-				if (null == _isntace)
+				if (null == instance)
 				{
-					_isntace = new Config();
+					instance = new Config();
 				}
 
-				return _isntace;
+				return instance;
 			}
 		}
 
-		public string GetValue(string key)
+		public string GetValue(String key)
 		{
-			DataRow[] rows = this.dsCfg.Config.Select("key = '" + key + "'");
+			DataRow[] rows = this.dataSet.Config.Select("key = '" + key + "'");
 
 			if (rows.Length > 0)
 			{
@@ -76,9 +76,9 @@ namespace DisksDB.Config
 			return null;
 		}
 
-		public int GetValue(string key, int defaultValue)
+		public int GetValue(String key, int defaultValue)
 		{
-			string s = GetValue(key);
+			String s = GetValue(key);
 
 			if (null != s)
 			{
@@ -88,9 +88,9 @@ namespace DisksDB.Config
 			return defaultValue;
 		}
 
-        public bool GetValue(string key, bool defaultValue)
+        public bool GetValue(String key, bool defaultValue)
         {
-            string s = GetValue(key);
+            String s = GetValue(key);
 
             if (null != s)
             {
@@ -102,9 +102,9 @@ namespace DisksDB.Config
             }
         }
 
-		public string GetValue(string key, string defaultValue)
+		public string GetValue(String key, String defaultValue)
 		{
-			string s = GetValue(key);
+			String s = GetValue(key);
 
 			if (null != s)
 			{
@@ -114,7 +114,7 @@ namespace DisksDB.Config
 			return defaultValue;
 		}
 
-        public void SetValue(string key, bool value)
+        public void SetValue(String key, bool value)
         {
             if (true == value)
             {
@@ -126,14 +126,14 @@ namespace DisksDB.Config
             }
         }
 
-        public void SetValue(string key, int value)
+        public void SetValue(String key, int value)
         {
             SetValue(key, value.ToString());
         }
 
-        public void SetValue(string key, string value)
+        public void SetValue(String key, String value)
         {
-			DataRow[] rows = this.dsCfg.Config.Select("key = '" + key + "'");
+			DataRow[] rows = this.dataSet.Config.Select("key = '" + key + "'");
 
 			if (rows.Length > 0)
 			{
@@ -141,10 +141,10 @@ namespace DisksDB.Config
 			}
 			else
 			{
-				DataSetConfig.ConfigRow dr = dsCfg.Config.NewConfigRow();
+				DataSetConfig.ConfigRow dr = dataSet.Config.NewConfigRow();
 				dr.Key = key;
 				dr.Value = value;
-				dsCfg.Config.AddConfigRow(dr);
+				dataSet.Config.AddConfigRow(dr);
 			}
 		}
 
@@ -152,7 +152,7 @@ namespace DisksDB.Config
 		{
 			try
 			{
-				this.dsCfg.WriteXml(cfgFileName);
+				this.dataSet.WriteXml(configFileName);
 			}
 			catch (Exception ex)
 			{
@@ -168,7 +168,7 @@ namespace DisksDB.Config
 			}
 		}
 
-		public string AppID
+		public String AppID
 		{
 			get
 			{
@@ -176,10 +176,10 @@ namespace DisksDB.Config
 			}
 		}
 
-		private DataSetConfig dsCfg = new DataSetConfig();
-		private static Config _isntace = null;
-		private string cfgFileName = null;
+		private DataSetConfig dataSet = new DataSetConfig();
+		private static Config instance = null;
+		private String configFileName = null;
 		private bool configFileExists = true;
-		private static string appId = "DisksDB\\{9FE0FD34-BD2E-4c50-A057-FE550CD25472}";
+		private const String appId = "DisksDB\\{9FE0FD34-BD2E-4c50-A057-FE550CD25472}";
 	}
 }

@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -20,11 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 using System;
-using System.Drawing;
 using System.Collections;
-using System.Windows.Forms;
+using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Reflection;
+using System.Windows.Forms;
 
 namespace DisksDB.UserInterface
 {
@@ -93,7 +92,7 @@ namespace DisksDB.UserInterface
 				this.imageList.Images.Add(new Icon(MyResources.GetStream("dvd.ico")));
 			}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				this.imageList.Images.Add(new Icon(MyResources.GetStream("dvd.ico")));
 			}
@@ -121,7 +120,7 @@ namespace DisksDB.UserInterface
 					this.imageList.Images.Add(new Icon(MyResources.GetStream("dvd.ico")));
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				this.imageList.Images.Add(new Icon(MyResources.GetStream("dvd.ico")));
 			}
@@ -148,7 +147,7 @@ namespace DisksDB.UserInterface
                     return null;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new Icon(MyResources.GetStream("dvdbox.ico"));
             }
@@ -184,7 +183,7 @@ namespace DisksDB.UserInterface
                     return new Icon(MyResources.GetStream("dvdbox.ico"));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new Icon(MyResources.GetStream("dvdbox.ico"));
             }
@@ -204,7 +203,7 @@ namespace DisksDB.UserInterface
 
 			return icon;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return new Icon(MyResources.GetStream("dvdbox.ico"));
 			}
@@ -240,7 +239,7 @@ namespace DisksDB.UserInterface
 			
 			return icon;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return new Icon(MyResources.GetStream("dvdbox.ico"));
 			}
@@ -267,7 +266,7 @@ namespace DisksDB.UserInterface
 			
 				return icon;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return new Icon(MyResources.GetStream("dvdbox.ico"));
 			}

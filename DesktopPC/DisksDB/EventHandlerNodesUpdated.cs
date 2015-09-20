@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -19,13 +19,13 @@ along with DisksDB; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-using System.Windows.Forms;
 using DisksDB.DataBase;
+using System.Windows.Forms;
 
 namespace DisksDB.UserInterface
 {
 	/// <summary>
 	/// Enet handler for TreeView.Invoke method, to update tree node items from another thread.
 	/// </summary>
-	public delegate void EventHandlerNodesUpdated(TreeNodeCollection lst, BaseObject obj);
+	delegate void EventHandlerNodesUpdated(TreeNodeCollection lst, BaseObject obj);
 }

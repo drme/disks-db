@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -25,10 +25,7 @@ using System.Windows.Forms;
 
 namespace DisksDB.Language
 {
-	/// <summary>
-	/// Summary description for FormI18N.
-	/// </summary>
-	public class FormI18NDC : WeifenLuo.WinFormsUI.DockContent
+	class FormI18NDC : WeifenLuo.WinFormsUI.DockContent
 	{
 		protected override void OnLoad(System.EventArgs e)
 		{

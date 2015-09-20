@@ -28,7 +28,7 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// Summary description for FormPrintPreview.
 	/// </summary>
-	public class FormPrintPreview : FormPrintable
+	class FormPrintPreview : FormPrintable
 	{
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;

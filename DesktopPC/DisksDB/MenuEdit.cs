@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -24,10 +24,7 @@ using System.Windows.Forms;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for MenuEdit.
-	/// </summary>
-	public class MenuEdit
+	class MenuEdit
 	{
 		private MenuItem mnuRename = new MenuItem("Rename");
 		private MenuItem mnuProperties = new MenuItem("Properties");

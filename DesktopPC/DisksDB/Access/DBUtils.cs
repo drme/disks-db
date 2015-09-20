@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -26,11 +26,11 @@ using System.Data.OleDb;
 namespace DisksDB.Access
 {
 	/// <summary>
-	/// Utilities for acessing Access DAtaBase
+	/// Utilities for acessing Access DataBase
 	/// </summary>
-	internal class DBUtils
+	class DBUtils
 	{
-		private static void BuildParameters(OleDbCommand cmd, object[] parameters)
+		private static void BuildParameters(OleDbCommand command, Object[] parameters)
 		{
 			if ( (null != parameters) && (parameters.Length > 0) )
 			{
@@ -38,105 +38,112 @@ namespace DisksDB.Access
 				{
 					if (parameters[i] is DateTime)
 					{
-						OleDbParameter p = new OleDbParameter("p" + i, OleDbType.DBDate);
-						p.Value = parameters[i];
-						cmd.Parameters.Add(p);
+						OleDbParameter parameter = new OleDbParameter("p" + i, OleDbType.DBDate);
+
+						parameter.Value = parameters[i];
+
+						command.Parameters.Add(parameter);
 					} 
 					else
 					{
-						cmd.Parameters.AddWithValue("p" + i, parameters[i]);
+						command.Parameters.AddWithValue("p" + i, parameters[i]);
 					}
 				}
 			}
 		}
 
-		public static OleDbDataReader ExecSQL(string conStr, string sql, object[] parameters)
+		public static OleDbDataReader ExecSQL(String connectionString, String sql, Object[] parameters)
 		{
-			OleDbConnection oleCon = new OleDbConnection(conStr);
-			OleDbCommand oleCmd = new OleDbCommand(sql, oleCon);
+			OleDbConnection connection = new OleDbConnection(connectionString);
+			OleDbCommand command = new OleDbCommand(sql, connection);
+			BuildParameters(command, parameters);
 
-			BuildParameters(oleCmd, parameters);
+			connection.Open();
 
-			oleCon.Open();
-
-			return oleCmd.ExecuteReader(CommandBehavior.CloseConnection);
+			return command.ExecuteReader(CommandBehavior.CloseConnection);
 		}
 
-		public static int InsertSQL(string conStr, string sql, object[] parameters)
+		public static int InsertSQL(String connectionString, String sql, Object[] parameters)
 		{
-			OleDbConnection oleCon = new OleDbConnection(conStr);
-			OleDbCommand oleCmd = new OleDbCommand(sql, oleCon);
+			using (OleDbConnection connection = new OleDbConnection(connectionString))
+			{
+				using (OleDbCommand command = new OleDbCommand(sql, connection))
+				{
+					BuildParameters(command, parameters);
 
-			BuildParameters(oleCmd, parameters);
+					connection.Open();
 
-			oleCon.Open();
+					command.ExecuteNonQuery();
 
-			oleCmd.ExecuteNonQuery();
+					using (OleDbCommand identityCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+					{
+						int result = (int)identityCommand.ExecuteScalar();
 
-			OleDbCommand oleCmdIdentity = new OleDbCommand("SELECT @@IDENTITY", oleCon);
-
-			int rez = (int)oleCmdIdentity.ExecuteScalar();
-
-			oleCon.Close();
-
-			return rez;
+						return result;
+					}
+				}
+			}
 		}
 
-		public static void UpdateSQL(string conStr, string sql, object[] parameters)
+		public static void UpdateSQL(String connectionString, String sql, Object[] parameters)
 		{
-			OleDbConnection oleCon = new OleDbConnection(conStr);
-			OleDbCommand oleCmd = new OleDbCommand(sql, oleCon);
+			using (OleDbConnection connection = new OleDbConnection(connectionString))
+			{
+				using (OleDbCommand command = new OleDbCommand(sql, connection))
+				{
+					BuildParameters(command, parameters);
 
-			BuildParameters(oleCmd, parameters);
+					connection.Open();
 
-			oleCon.Open();
-
-			oleCmd.ExecuteNonQuery();
-
-			oleCon.Close();
+					command.ExecuteNonQuery();
+				}
+			}
 		}
 
-		public static void DeleteSQL(string conStr, string sql, object[] parameters)
+		public static void DeleteSQL(String connectionString, String sql, Object[] parameters)
 		{
-			OleDbConnection oleCon = new OleDbConnection(conStr);
-			OleDbCommand oleCmd = new OleDbCommand(sql, oleCon);
+			using (OleDbConnection connection = new OleDbConnection(connectionString))
+			{
+				using (OleDbCommand command = new OleDbCommand(sql, connection))
+				{
+					BuildParameters(command, parameters);
 
-			BuildParameters(oleCmd, parameters);
+					connection.Open();
 
-			oleCon.Open();
-
-			oleCmd.ExecuteNonQuery();
-
-			oleCon.Close();
+					command.ExecuteNonQuery();
+				}
+			}
 		}
 
-		public static object ExecScalar(string conStr, string sql, object[] parameters)
+		public static object ExecScalar(String connectionString, String sql, Object[] parameters)
 		{
-			OleDbConnection oleCon = new OleDbConnection(conStr);
-			OleDbCommand oleCmd = new OleDbCommand(sql, oleCon);
+			using (OleDbConnection connection = new OleDbConnection(connectionString))
+			{
+				using (OleDbCommand command = new OleDbCommand(sql, connection))
+				{
+					BuildParameters(command, parameters);
 
-			BuildParameters(oleCmd, parameters);
+					connection.Open();
 
-			oleCon.Open();
-
-			object rez = oleCmd.ExecuteScalar();
-
-			oleCon.Close();
-
-			return rez;
+					return command.ExecuteScalar();
+				}
+			}
 		}
 
-		public static void FillDataTable(DataTable dt, string conStr, string sql, object[] parameters)
+		public static void FillDataTable(DataTable dataTable, String connectionString, String sql, Object[] parameters)
 		{
-			OleDbConnection oleCon = new OleDbConnection(conStr);
+			using (OleDbConnection connection = new OleDbConnection(connectionString))
+			{
+				using (OleDbCommand command = new OleDbCommand(sql, connection))
+				{
+					BuildParameters(command, parameters);
 
-			OleDbCommand oleCmd = new OleDbCommand(sql, oleCon);
-
-			BuildParameters(oleCmd, parameters);
-
-			OleDbDataAdapter da = new OleDbDataAdapter(oleCmd);
-
-			da.Fill(dt);
+					using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command))
+					{
+						dataAdapter.Fill(dataTable);
+					}
+				}
+			}
 		}
 	}
 }

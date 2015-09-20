@@ -1,6 +1,6 @@
-﻿namespace DisksDB.Config {
-    
-    
-    public partial class DataSetConfig {
-    }
+﻿namespace DisksDB.Config
+{
+	public partial class DataSetConfig
+	{
+	}
 }

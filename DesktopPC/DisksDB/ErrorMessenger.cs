@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -24,17 +24,14 @@ using System.Windows.Forms;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for ErrorMessenger.
-	/// </summary>
-	public class ErrorMessenger
+	class ErrorMessenger
 	{
-		public static void ErrorMessage(IWin32Window parent, string message, Exception ex)
+		public static void ErrorMessage(IWin32Window parent, String message, Exception ex)
 		{
 			MessageBox.Show(parent, message + ((null != ex) ? ("\n" + ex.Message+"\n" + ex.StackTrace) : ""), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
-		public static DialogResult QuestionMessage(IWin32Window parent, string title, string message)
+		public static DialogResult QuestionMessage(IWin32Window parent, String title, String message)
 		{
 			return MessageBox.Show(parent, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 		}

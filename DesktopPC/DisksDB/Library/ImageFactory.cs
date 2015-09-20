@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DisksDB.DataBase
 {
 	/// <summary>
 	/// Factory for loading images
 	/// </summary>
-	public abstract class ImageFactory : BaseObject
+	abstract class ImageFactory : BaseObject
 	{
 		/// <summary>
 		/// Constructor
@@ -91,7 +92,7 @@ namespace DisksDB.DataBase
 			return null;
 		}
 
-		public virtual ArrayList GetImages()
+		public virtual List<Image> GetImages()
 		{
 			if (null == this.images)
 			{
@@ -112,14 +113,14 @@ namespace DisksDB.DataBase
 			return this.images;
 		}
 
-		protected ArrayList images = null;
+		protected List<Image> images = null;
 		protected AddImageHandler AddImageEvent = null;
 		protected GetImagesHandler GetImagesEvent = null;
 		protected DeleteImageHandler DeleteImageEvent = null;
 		protected UpdateImageHandler UpdateImageEvent = null;
 		protected delegate Image AddImageHandler(string name, string fileName, byte[] data);
 		protected delegate void UpdateImageHandler(Image img, string name, string fileName, byte[] data);
-		protected delegate ArrayList GetImagesHandler();
+		protected delegate List<Image> GetImagesHandler();
 		protected delegate void DeleteImageHandler(Image img);
 	}
 }

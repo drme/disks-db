@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -20,68 +20,74 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 using System;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace DisksDB.UserInterface
 {
-	/// <summary>
-	/// Summary description for MyResources.
-	/// </summary>
 	public class MyResources
 	{
-		public static System.IO.Stream GetStream(string fileName)
+		public static Stream GetStream(String fileName)
 		{
-			return System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(nameSpaceName + fileName);
+			return Assembly.GetExecutingAssembly().GetManifestResourceStream(nameSpaceName + fileName);
 		}
 
-        public static System.Drawing.Bitmap GetBitmap(string fileName)
+        public static Bitmap GetBitmap(String fileName)
         {
-            System.IO.Stream s = GetStream(fileName);
-
-            if (null != s)
-            {
-                return new System.Drawing.Bitmap(s);
-            }
-            else
-            {
-                return new System.Drawing.Bitmap(16, 16);
-            }
-        }
-
-        public static System.Drawing.Icon GetIcon(string fileName)
-        {
-            System.IO.Stream s = GetStream(fileName);
-
-            if (null != s)
-            {
-                return new System.Drawing.Icon(s);
-            }
-            else
-            {
-                return FileIcons.GetSystemIcon(0);
-            }
-        }
-
-		public static string GetText(string fileName)
-		{
-			System.IO.Stream s = GetStream(fileName);
-			System.IO.StreamReader sr = new System.IO.StreamReader(s);
-
-			char[] buf = new char[1024];
-
-			int size = sr.Read(buf, 0, 1024);
-
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-			while (size > 0)
+			using (Stream stream = GetStream(fileName))
 			{
-				sb.Append(buf, 0, size);
-
-				size = sr.Read(buf, 0, 1024);
+				if (null != stream)
+				{
+					return new Bitmap(stream);
+				}
+				else
+				{
+					return new Bitmap(16, 16);
+				}
 			}
+        }
 
-			return sb.ToString();
+        public static Icon GetIcon(String fileName)
+        {
+			using (Stream stream = GetStream(fileName))
+			{
+				if (null != stream)
+				{
+					return new Icon(stream);
+				}
+				else
+				{
+					return FileIcons.GetSystemIcon(0);
+				}
+			}
+        }
+
+		public static String GetText(String fileName)
+		{
+			using (Stream stream = GetStream(fileName))
+			{
+				using (StreamReader streamReader = new StreamReader(stream))
+				{
+					char[] buffer = new char[1024];
+
+					int size = streamReader.Read(buffer, 0, 1024);
+
+					StringBuilder stringBuilder = new StringBuilder();
+
+					while (size > 0)
+					{
+						stringBuilder.Append(buffer, 0, size);
+
+						size = streamReader.Read(buffer, 0, 1024);
+					}
+
+					return stringBuilder.ToString();
+				}
+			}
 		}
 
-		private static string nameSpaceName = "DisksDB.UserInterface.Resources.";
+		private const string nameSpaceName = "DisksDB.Resources.";
 	}
 }

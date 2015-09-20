@@ -1,6 +1,6 @@
 /*
 ===========================================================================
-Copyright (C) 2005 Sarunas
+Copyright (C) 2015 Sarunas
 
 This file is part of DisksDB source code.
 
@@ -24,5 +24,5 @@ namespace DisksDB.UserInterface
 	/// <summary>
 	/// evnt for user selection notify on some list.
 	/// </summary>
-	public delegate void EventHandlerItemSelected(IListItem item);
+	delegate void EventHandlerItemSelected(IListItem item);
 }
